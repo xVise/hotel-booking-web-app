@@ -1,0 +1,20 @@
+{
+  "dependencies": {
+    "axios": "^1.6.7",
+    "express": "^4.18.3",
+    "mongodb": "^6.4.0",
+    "mongoose": "^8.2.0",
+    "nodemon": "^3.1.0"
+  },
+  "name": "hotel-booking-web-app",
+  "description": "Web application for unversity assigment. We are aiming to create Booking.com look like project",
+  "version": "1.0.0",
+  "main": "index.js",
+
+  "scripts": {
+    "start": "nodemon Data_Base/DB_Test.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Website with Login & Registration Form</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+</head>
+<body>
+<!-- Header -->
+<header class="header">
+    <nav class="nav">
+        <a href="#" class="nav_logo">ComfortCountry</a>
+
+        <button class="button" id="form-open">Log in</button>
+    </nav>
+
+</header>
+
+<!-- Home -->
+<section class="home">
+    <div class="form_container">
+        <i class="uil uil-times form_close"></i>
+        <!-- Login Form -->
+        <div class="form login_form">
+            <form action="#">
+                <h2>Log in</h2>
+            </form>
+
+            <div class="input_box">
+                <label for="login_email">
+                    <input type="email" id="login_email" placeholder="Enter your email" required />
+                </label>
+                <i class="uil uil-envelope-alt email"></i>
+            </div>
+            <div class="input_box">
+                <label for="login_password">
+                    <input type="password" id="login_password" placeholder="Enter your password" required />
+                </label>
+                <i class="uil uil-lock password"></i>
+                <i class="uil uil-eye-slash pw_hide"></i>
+            </div>
+
+            <div class="option_field">
+              <span class="checkbox">
+                <input type="checkbox" id="check" />
+                <label for="check">Remember me</label>
+              </span>
+                <a href="#" class="forgot_pw">Forgot password?</a>
+            </div>
+
+            <button class="button" onclick="Get_Login_Data()">Log in Now</button>
+
+            <div class="login_signup">Don't have an account? <a href="#" id="signup">Sign up</a></div>
+        </div>
+
+        <!-- Signup Form -->
+        <div class="form signup_form">
+            <form action="/auth/registration" method="POST">
+                <h2>Sign up</h2>
+
+                <div class="input_box">
+                    <label for="first_name">
+                        <input type="text" id="first_name" placeholder="First Name" required />
+                    </label>
+                    <i class="uil uil-user"></i>
+                </div>
+                <div class="input_box">
+                    <label for="last_name">
+                        <input type="text" id="last_name" placeholder="Last Name" required />
+                    </label>
+                    <i class="uil uil-user"></i>
+                </div>
+                <div class="input_box">
+                    <label for="sex">
+                        <input type="text" id="sex" placeholder="Sex" required />
+                    </label>
+                    <i class="uil uil-user"></i>
+                </div>
+                <div class="input_box">
+                    <label for="dob">
+                        <input type="date" id="dob" placeholder="Date of Birth" required />
+                    </label>
+                    <i class="uil uil-calendar"></i>
+                </div>
+                <div class="input_box">
+                    <label for="phone">
+                        <input type="tel" id="phone" placeholder="Phone Number" required />
+                    </label>
+                    <i class="uil uil-phone"></i>
+                </div>
+                <div class="input_box">
+                    <label for="country">
+                        <input type="text" id="country" placeholder="Country" required />
+                    </label>
+                    <i class="uil uil-globe"></i>
+                </div>
+
+                <div class="input_box">
+                    <label for="signup_email">
+                        <input type="email" id="signup_email" placeholder="Enter your email" required />
+                    </label>
+                    <i class="uil uil-envelope-alt email"></i>
+                </div>
+                <div class="input_box">
+                    <label for="signup_password">
+                        <input type="password" id="signup_password" placeholder="Create password" required />
+                    </label>
+                    <i class="uil uil-lock password"></i>
+                    <i class="uil uil-eye-slash pw_hide"></i>
+                </div>
+                <div class="input_box">
+                    <label for="confirm_password">
+                        <input type="password" id="confirm_password" placeholder="Confirm password" required />
+                    </label>
+                    <i class="uil uil-lock password"></i>
+                    <i class="uil uil-eye-slash pw_hide"></i>
+                </div>
+
+
+                <button class="button" onclick="registerUser()">Sign up Now</button>
+
+                <div class="login_signup">Already have an account? <a href="#" id="login">Login</a></div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<script src="script.js"></script>
+<script src="Login.js"></script>
+<script src="Registration.js"></script>
+</body>
+</html>
