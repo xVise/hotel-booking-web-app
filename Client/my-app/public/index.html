@@ -7,6 +7,7 @@
     <title>Website with Login & Registration Form</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
 <!-- Header -->
@@ -51,7 +52,7 @@
                 <a href="recovery.html" class="forgot_pw">Forgot password?</a>
             </div>
 
-            <button class="button">Log in Now</button>
+            <button type="button" class="button" onclick="Get_Login_Data()">Log in Now</button>
 
             <div class="login_signup">Don't have an account? <a href="#" id="signup">Sign up</a></div>
         </div>
@@ -119,7 +120,7 @@
                     <i class="uil uil-eye-slash pw_hide"></i>
                 </div>
 
-                <button class="button">Sign up Now</button>
+                <button type="button" class="button" onclick="registerUser()">Sign up Now</button>
 
                 <div class="login_signup">Already have an account? <a href="#" id="login">Login</a></div>
             </form>
@@ -128,5 +129,7 @@
 </section>
 
 <script src="script.js"></script>
+<script src="Login.js"></script>
+<script src="Registration.js"></script>
 </body>
 </html>

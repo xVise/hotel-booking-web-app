@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Info</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<div id="user_name"></div>
+
+<!-- Скрипт, який виконується на сторінці завантаження -->
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
+    console.log(token)
+    axios.get('api/user/users', {
+        headers: {
+            Authorization: 'Bearer ' + token
+        }
+    }).then(function (response) {
+        const userInfo = response.data;
+        console.log(userInfo)
+        document.getElementById('user_name').innerText = userInfo.First_Name + ' ' + userInfo.Last_Name+' '+userInfo.EMail+' '+userInfo.Phone_Number+' '+userInfo.Gender+' '+userInfo.Country;
+    }).catch(function (error) {
+        console.error('Error fetching user profile:', error);
+    });
+</script>
+</body>
+</html>
