@@ -1,0 +1,116 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    font-size: 18px;
+    transition: all 300ms ease; }
+  
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility; 
+    margin-top: 7em;}
+
+    .form_container {
+      position: fixed;
+      margin: 5em	auto;
+      margin-left: 25em;
+      max-width: 700px;
+      width: 100%;
+      background: #ffffff;
+      padding: 25px;
+      border: 3px solid;
+      border-radius: 12px;
+      text-align: center;
+  }
+  
+  .row {
+    position:absolute;
+    justify-content: center;
+    align-items: center;
+    background: #ffffff;
+    padding: 25px;
+    border: 3px solid;
+    border-radius: 12px;
+    text-align: center;
+    max-width: 700px;
+    top: calc(50%-200px); 
+    left: 0;
+    right: 0;
+    margin: 0 auto;}
+
+    .row h1 {
+      font-size: 1.5em; }
+    .row .form-group {
+      margin: 0.5em 0; }
+      .row .form-group label {
+        display: block;
+        color: #000000;
+        text-align: left;
+        font-weight: bolder; }
+      .row .form-group input, .row .form-group button {
+        display: block;
+        padding: 0.5em 0;
+        width: 100%;
+        margin-top: 1em;
+        margin-bottom: 0.5em;
+        background-color: inherit;
+        border: none;
+        border-bottom: 2px solid #000000;
+        color: #000000; }
+        .row .form-group input:focus, .row .form-group button:focus {
+          background-color: #fff;
+          transform: scale(0.95);
+          padding: 1em 0.5em; animation: pulse 1s infinite ease;}
+      .row .form-group button {
+        border: 2px solid #000000;
+        border-radius: 15px;
+        outline: none;
+        -moz-user-select: none;
+        user-select: none;
+        color: #7D0DC3;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 2em;
+        padding: 1em; }
+        .row .form-group button.is-loading::after {
+          animation: spinner 500ms infinite linear;
+          content: "";
+          position: absolute;
+          margin-left: 2em;
+          border: 2px solid #000;
+          border-radius: 100%;
+          border-right-color: transparent;
+          border-left-color: transparent;
+          height: 1em;
+          width: 4%; }
+    .row .footer h5 {
+      font-weight: normal;
+      margin-top: 1em; }
+    .row .footer p {
+      margin-top: 2em; }
+      .row .footer p .symbols {
+        color: #000000; }
+    .row .footer a {
+      font-weight: medium;
+      color:#7D0DC3 ;
+      text-decoration: none; }
+  
+  .information-text {
+    margin-top: 20px;
+    color: #000000;
+    font-weight:normal; 
+    font-size: 18px;}
+  
+  @media screen and (max-width: 320px) {
+    .row {
+      padding-left: 1em;
+      padding-right: 1em; }
+      .row h1 {
+        font-size: 1.5em !important; } }
+  @media screen and (min-width: 900px) {
+    .row {
+      width: 50%; } }
+  
