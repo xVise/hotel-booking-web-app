@@ -11,7 +11,7 @@ async function registerUser() {
         }
 
 
-        await axios.post('/auth/registration', {
+        await axios.post('api/user/registration', {
             firstName: userData.firstName,
             lastName: userData.lastName,
             sex: userData.sex,
@@ -21,6 +21,7 @@ async function registerUser() {
             email: userData.email,
             password: userData.password
         }).then((res)=>{ console.log("User registered successfully:", res.data)});
+
 
 
     } catch (error) {

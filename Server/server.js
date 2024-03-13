@@ -1,10 +1,10 @@
 const  express=require('express')
 const mongoose=require("mongoose")
 const path = require("path");
-const authRouter=require("./Routers/authRouter")
+const router=require("./Routers/index")
 const app=express()
 app.use(express.json())
-app.use("/auth",authRouter)
+app.use("/api",router)
 const publicDirectoryPath=path.join(__dirname,"../Client/my-app/public")
 console.log(__dirname)
 app.use(express.static(publicDirectoryPath))
