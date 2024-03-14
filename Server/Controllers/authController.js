@@ -26,9 +26,24 @@ const generateAcessToken=(id,roles)=>{
     }
     return jwt.sign(payload,secret,{expiresIn: "1h"})
 }
+
 const generateCodeToken=(id,code)=>{
     const payload={
         id,
+        code
+    }
+    return jwt.sign(payload,secret,{expiresIn: "1h"})
+}
+const generateRegtoken=(firstName,lastName,sex,bDate,telephone,country,email,heshpassword,code)=>{
+    const payload={
+        firstName,
+        lastName,
+        sex,
+        bDate,
+        telephone,
+        country,
+        email,
+        heshpassword,
         code
     }
     return jwt.sign(payload,secret,{expiresIn: "1h"})
@@ -67,25 +82,13 @@ class  AuthController{
                 return res.status(400).json({message:"Ошибка реєстрації",errors})
             }
             const { firstName, lastName, sex, bDate, telephone, country, email, password } = req.body;
-            console.log("Passs")
-            console.log(password)
-
             const heshpassword=bcrypt.hashSync(password,10)
-            console.log(heshpassword)
-            console.log("Pass")
-            const Reg_inform=User({
-                First_Name: firstName,
-                Last_Name: lastName,
-                EMail: email,
-                Password: heshpassword,
-                Phone_Number: telephone,
-                Gender:sex,
-                Date:bDate,
-                Country:country,
-                Roles:"USER",
-            })
-            console.log(Reg_inform)
-            await Reg_inform.save()
+            const verificationCode=generateVerificationCode();
+            sendVerificationEmail(email,verificationCode);
+            const  token=generateRegtoken(firstName,lastName,sex,bDate,telephone,country,email,heshpassword,verificationCode)
+            return res.json({token})
+
+
 
         }catch (e) {
             console.log(e)
@@ -95,6 +98,7 @@ class  AuthController{
     async login(req,res){
         try {
             const {EMail,Password}=req.body
+
             const user=await User.findOne({EMail})
             console.log(user)
             if(!user){
@@ -131,14 +135,8 @@ class  AuthController{
     }
     async RegcodeDecoder(req,res){
         try {
-
             const decodedToken = decodeToken(req.headers.authorization, secret);
-
-
             res.json(decodedToken)
-
-
-
         }catch (e) {
             console.error('Error fetching user profile:', e)
             res.status(500).json({ message: 'Internal server error' })
@@ -151,6 +149,31 @@ class  AuthController{
             if(!user){
                 return res.status(501).json({message:'користувач не найдений'})
             }
+            return res.json("Ok")
+        }catch (e) {
+            console.error('Error fetching user profile:', e)
+            res.status(500).json({ message: 'Internal server error' })
+        }
+    }
+    async RegCode(req,res){
+        try {
+            console.log("ok")
+            const { firstName, lastName, sex, bDate, telephone, country, email, heshpassword } = req.body;
+            console.log("Server")
+            console.log(heshpassword)
+            const Reg_inform=User({
+                First_Name: firstName,
+                Last_Name: lastName,
+                EMail: email,
+                Password: heshpassword,
+                Phone_Number: telephone,
+                Gender:sex,
+                Date:bDate,
+                Country:country,
+                Roles:"USER",
+            })
+            console.log(Reg_inform)
+            await Reg_inform.save()
             return res.json("Ok")
         }catch (e) {
             console.error('Error fetching user profile:', e)
