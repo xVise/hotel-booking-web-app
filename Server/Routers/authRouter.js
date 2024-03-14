@@ -14,6 +14,12 @@ router.post("/registration",[
     check("Country","Країна користувача не може бути пустим").notEmpty(),
     ],controller.registration)
 router.post("/login",controller.login)
+router.post("/Email_code",controller.GetEmail)
+router.post("/Code",controller.SendCode)
+router.post("/newpass",controller.NewPass)
+router.get("/decode",controller.RegcodeDecoder)
 router.get("/users",authMiddleware,controller.getUsers)
+
+
 module.exports=router
 

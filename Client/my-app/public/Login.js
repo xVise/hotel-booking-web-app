@@ -5,7 +5,7 @@ async function Get_Login_Data() {
         EMail: Log_Email,
         Password: Log_Password
     }).then(function (response){
-        console.log(response)
+
         localStorage.setItem("token",response.data.token);
         window.location.href = 'user_info.html?token='+response.data.token;
     })
@@ -15,7 +15,7 @@ async function Get_Login_Data() {
                 var messageDiv = document.createElement('div');
                 messageDiv.textContent = 'Користувача не знайдено'; // Текст повідомлення
                 messageDiv.style.position = 'fixed'; // Фіксована позиція, щоб повідомлення було поверх інших елементів
-                messageDiv.style.top = '30%'; // Вертикальне центрування
+                messageDiv.style.top = '10%'; // Вертикальне центрування
                 messageDiv.style.left = '50%'; // Горизонтальне центрування
                 messageDiv.style.transform = 'translate(-50%, -50%)'; // Центрування відносно центра вікна
                 messageDiv.style.backgroundColor = '#fff'; // Колір фону
