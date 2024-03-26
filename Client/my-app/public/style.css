@@ -206,3 +206,15 @@ a {
     margin-top: 15px;
 
 }
+
+.profile_icon {
+    position: absolute; 
+    right: 0; 
+    top: 50%; 
+    transform: translateY(-50%);
+}
+
+.profile_icon i {
+    font-size: 40px;
+    color: #ffffff;
+}
