@@ -21,44 +21,74 @@
 <div class="container">
     <h1>User Profile</h1>
     <form id="profileForm">
-        <label id="first_name" >Name:</label>
-        <label id="surname">Surname:</label>
-        <label id="phoneNumber">Phone Number:</label>
-        <label id="sex">Sex:</label>
-        <label id="dob">Date of Birth:</label>
-        <label id="country">Country:</label>
-        <label id="email">Email:</label>
+        <label for="first_name_input">Name:</label>
+        <input type="text" id="first_name_input" name="first_name" readonly>
+        <label for="surname_input">Surname:</label>
+        <input type="text" id="surname_input" name="surname" readonly>
+        <label for="phoneNumber_input">Phone Number:</label>
+        <input type="text" id="phoneNumber_input" name="phoneNumber" readonly>
+        <label for="sex_input">Sex:</label>
+        <input type="text" id="sex_input" name="sex" readonly>
+        <label for="dob_input">Date of Birth:</label>
+        <input type="text" id="dob_input" name="dob" readonly>
+        <label for="country_input">Country:</label>
+        <input type="text" id="country_input" name="country" readonly>
+        <label for="email_input">Email:</label>
+        <input type="text" id="email_input" name="email" readonly>
+        <button type="button" id="editButton" onclick="enableEditing()">Редагувати</button>
+        <button type="button" id="saveButton" onclick="saveChanges()" style="display: none;">Зберегти</button>
     </form>
 </div>
 
 <script>
     const urlParams = new URLSearchParams(window.location.search);
-const token = urlParams.get('token');
-console.log(token);
+    const token = urlParams.get('token');
+    console.log(token);
 
-if (token) {
-    axios.get('api/user/users', {
-        headers: {
-            Authorization: 'Bearer ' + token
+    if (token) {
+        axios.get('api/user/users', {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        }).then(function (response) {
+            const userInfo = response.data;
+            console.log(userInfo);
+            document.getElementById('first_name_input').value = userInfo.First_Name;
+            document.getElementById('surname_input').value = userInfo.Last_Name;
+            document.getElementById('phoneNumber_input').value = userInfo.Phone_Number;
+            document.getElementById('sex_input').value = userInfo.Gender;
+            document.getElementById('dob_input').value = userInfo.Date;
+            document.getElementById('country_input').value = userInfo.Country;
+            document.getElementById('email_input').value = userInfo.EMail;
+        }).catch(function (error) {
+            console.error('Error fetching user profile:', error);
+        });
+    } else {
+        console.error('Token not found in URL.');
+    }
+
+    // Функція для включення редагування полів
+    function enableEditing() {
+        var inputs = document.querySelectorAll('input[readonly]');
+        for (var i = 0; i < inputs.length; i++) {
+            inputs[i].readOnly = false;
         }
-    }).then(function (response) {
-        const userInfo = response.data;
-        console.log(userInfo);
-        document.getElementById('first_name').innerText = "First Name: " + userInfo.First_Name;
-        document.getElementById('surname').innerText = "Last Name: " + userInfo.Last_Name;
-        document.getElementById('phoneNumber').innerText = "Phone number: " + userInfo.Phone_Number;
-        document.getElementById('sex').innerText = "Sex: " + userInfo.Gender;
-        document.getElementById('dob').innerText = "Date of Birthday: " + userInfo.Date;
-        document.getElementById('country').innerText = "Country: " + userInfo.Country;
-        document.getElementById('email').innerText = "Email: " + userInfo.EMail;
-    }).catch(function (error) {
-        console.error('Error fetching user profile:', error);
-    });
-} else {
-    console.error('Token not found in URL.');
-}
-;
-    
+        document.getElementById('editButton').style.display = 'none';
+        document.getElementById('saveButton').style.display = 'block';
+    }
+
+    // Функція для збереження змін
+    function saveChanges() {
+        var inputs = document.querySelectorAll('input[readonly]');
+        for (var i = 0; i < inputs.length; i++) {
+            inputs[i].readOnly = true;
+        }
+        document.getElementById('saveButton').style.display = 'none';
+        document.getElementById('editButton').style.display = 'block';
+       
+        alert('Зміни успішно збережено!');
+    }
 </script>
 
 </body>
+</html>
