@@ -47,7 +47,9 @@ a {
     cursor: pointer;
     font-weight: bolder;
 }
-
+.male{
+    margin-left: 20px;
+}
 .button:active {
     transform: scale(0.98);
 }
@@ -153,8 +155,16 @@ a {
 .input_box i.uil-phone,
 .input_box i.password {
     left: 0;
+    display: flex;
 }
-
+#country {
+    margin-left: 40px;
+    margin-top: 10px;
+}
+#male {
+    margin-left: 40px;
+    margin-top: 10px;
+}
 
 .input_box input:focus ~ i.email,
 .input_box input:focus ~ i.password {

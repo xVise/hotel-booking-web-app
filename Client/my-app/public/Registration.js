@@ -2,6 +2,7 @@
 async function registerUser() {
     try {
         const userData = await getRegisterData();
+        console.log(userData);
         if (userData.Error === 1) {
             const message = "Passwords do not match.";
             console.log(message);
@@ -34,14 +35,22 @@ async function registerUser() {
 async function getRegisterData() {
     const firstName = document.getElementById("first_name").value;
     const lastName = document.getElementById("last_name").value;
-    const sex = document.getElementById("sex").value;
+    const sex = document.getElementById("male").value;
     const bDate = document.getElementById("dob").value;
     const telephone = document.getElementById("phone").value;
     const country = document.getElementById("country").value;
     const email = document.getElementById("signup_email").value;
     const firstPassword = document.getElementById("signup_password").value;
     const secondPassword = document.getElementById("confirm_password").value;
-
+    console.log(firstName);
+    console.log(lastName);
+    console.log(sex);
+    console.log(bDate);
+    console.log(telephone);
+    console.log(country);
+    console.log(email);
+    console.log(firstPassword);
+    console.log(secondPassword);
     let error_type_p = 0;
     if (firstPassword !== secondPassword) {
         error_type_p = 1;
