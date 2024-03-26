@@ -8,7 +8,7 @@ async function Get_Login_Data() {
         });
         console.log(response);
         localStorage.setItem("token", response.data.token);
-        window.location.href = 'userprofile.html?token='+ response.data.token;
+        window.location.href = 'index.html?token='+ response.data.token;
         
     } catch (error) {
         if (error.response) {

@@ -208,8 +208,9 @@ a {
 }
 
 .profile_icon {
+    display: none;
     position: absolute; 
-    right: 0; 
+    right: 12%; 
     top: 50%; 
     transform: translateY(-50%);
 }

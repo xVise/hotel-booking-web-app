@@ -66,15 +66,26 @@ class  AuthController{
             res.status(400).json({message:"Login error"})
         }
     }
-    async getUsers(req,res){
+    async getUsers(req, res) {
         try {
-            const users=await User.findById(req.user.id);
-            res.json(users)
-        }catch (e) {
-            console.error('Error fetching user profile:', error)
-            res.status(500).json({ message: 'Internal server error' })
-
+            const users = await User.findById(req.user.id);
+            console.log(users);
+            var date = users.Date.toString();
+            var parts = date.split(" ");
+            var day = parts[2];
+            var month = parts[1];
+            var year = parts[3];
+    
+            var outputDate = day + "-" + month + "-" + year;
+            console.log(outputDate);
+            users.Date=outputDate;
+            console.log(users);
+            res.json(users);
+        } catch (e) {
+            console.error('Error fetching user profile:', e);
+            res.status(500).json({ message: 'Internal server error' });
         }
     }
+    
 }
 module.exports=new AuthController()
