@@ -36,11 +36,14 @@
         <label for="email_input">Email:</label>
         <input type="text" id="email_input" name="email" readonly>
     </div>
-    <div class="log_out">
-        <p class="Log">Log out</p>
-    </div>
+    <button class="log_out" onclick="logout()">Log out</button>
+    
 </div>
-
+<script>
+    function logout(){
+        window.location.href = 'index.html';
+}
+</script>
 <script>
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get('token');
@@ -68,6 +71,7 @@
         console.error('Token not found in URL.');
     }
 
+    // Функція для включення редагування полів
     function enableEditing() {
         var inputs = document.querySelectorAll('input[readonly]');
         for (var i = 0; i < inputs.length; i++) {
@@ -77,6 +81,7 @@
         document.getElementById('saveButton').style.display = 'block';
     }
 
+    // Функція для збереження змін
     function saveChanges() {
         var inputs = document.querySelectorAll('input[readonly]');
         for (var i = 0; i < inputs.length; i++) {
@@ -87,7 +92,6 @@
 
         alert('Зміни успішно збережено!');
     }
-
     document.addEventListener("DOMContentLoaded", function() {
         const urlParams = new URLSearchParams(window.location.search);
         const token = urlParams.get('token');
@@ -97,5 +101,19 @@
     });
 </script>
 
-</body>
-</html>
+<script>
+    function displayProfilePicture(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            document.getElementById('profile_picture').setAttribute('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+// Обробник події для завантаження фотографії
+document.getElementById('profile_picture_input').addEventListener('change', function() {
+    displayProfilePicture(this);
+});
+</script>
