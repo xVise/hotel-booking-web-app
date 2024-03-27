@@ -229,3 +229,8 @@ a {
     font-size: 40px;
     color: #ffffff;
 }
+
+.error_message{
+     color: #ff0000;
+     font-size: 11px;
+}

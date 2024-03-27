@@ -20,6 +20,11 @@
 
 <div class="container">
     <h1>User Profile</h1>
+    <div class="picture">
+        <label for="profile_picture_input">Profile Picture:</label>
+        <input type="file" id="profile_picture_input" name="profile_picture" accept="image/*">
+        <img id="profile_picture" src="" alt="">
+    </div>
     <form id="profileForm">
         <label for="first_name_input">Name:</label>
         <input type="text" id="first_name_input" name="first_name" readonly>
@@ -97,5 +102,21 @@
     });
 </script>
 
+<script>
+    function displayProfilePicture(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            document.getElementById('profile_picture').setAttribute('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+// Обробник події для завантаження фотографії
+document.getElementById('profile_picture_input').addEventListener('change', function() {
+    displayProfilePicture(this);
+});
+</script>
 </body>
 </html>

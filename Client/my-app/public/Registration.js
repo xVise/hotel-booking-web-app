@@ -1,4 +1,3 @@
-
 async function registerUser() {
     try {
         const userData = await getRegisterData();
@@ -9,6 +8,23 @@ async function registerUser() {
             return;
         }
 
+        // Видалення попередніх повідомлень про помилки
+        clearErrorMessages();
+
+        if (userData.errors.length > 0) {
+            userData.errors.forEach(error => {
+                console.error(error);
+
+                // Отримання ID поля, яке спричинило помилку
+                const fieldId = error.fieldId;
+                // Отримання повідомлення про помилку
+                const errorMessage = error.errorMessage;
+
+                // Виведення повідомлення про помилку під відповідне поле
+                document.getElementById("error_" + fieldId).textContent = errorMessage;
+            });
+            return;
+        }
 
         await axios.post('api/user/registration', {
             firstName: userData.firstName,
@@ -20,11 +36,9 @@ async function registerUser() {
             email: userData.email,
             password: userData.password
         }).then(function (response){
-            localStorage.setItem("token",response.data.token);
-            window.location.href = 'Reg_sendCode.html?token='+response.data.token;
-        })
-
-
+            localStorage.setItem("token", response.data.token);
+            window.location.href = 'Reg_sendCode.html?token=' + response.data.token;
+        });
 
     } catch (error) {
         console.error("Error registering user:", error.message);
@@ -42,18 +56,30 @@ async function getRegisterData() {
     const email = document.getElementById("signup_email").value;
     const firstPassword = document.getElementById("signup_password").value;
     const secondPassword = document.getElementById("confirm_password").value;
-    console.log(firstName);
-    console.log(lastName);
-    console.log(sex);
-    console.log(bDate);
-    console.log(telephone);
-    console.log(country);
-    console.log(email);
-    console.log(firstPassword);
-    console.log(secondPassword);
-    let error_type_p = 0;
+
+    let errors = [];
+
+    // Validate email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        errors.push({ fieldId: "signup_email", errorMessage: "Invalid email address. Format: example@tag.tag" });
+    }
+
+    // Validate phone number
+    const phoneRegex = /^\d{10}$/;
+    if (!phoneRegex.test(telephone)) {
+        errors.push({ fieldId: "phone", errorMessage: "Invalid phone number. Please enter format like 096123456." });
+    }
+
+    // Validate password match
     if (firstPassword !== secondPassword) {
-        error_type_p = 1;
+        errors.push({ fieldId: "confirm_password", errorMessage: "Passwords do not match." });
+    }
+
+    // Validate password complexity
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    if (!passwordRegex.test(firstPassword)) {
+        errors.push({ fieldId: "signup_password", errorMessage: "Password must contain at least 8 characters, including one uppercase letter, one lowercase letter, one number, and one special character(@$!%*?&)." });
     }
 
     return {
@@ -65,6 +91,14 @@ async function getRegisterData() {
         country,
         email,
         password: firstPassword,
-        Error: error_type_p
+        errors
     };
+}
+
+// Функція для видалення попередніх повідомлень про помилки
+function clearErrorMessages() {
+    const errorMessages = document.querySelectorAll('.error_message');
+    errorMessages.forEach(errorMessage => {
+        errorMessage.textContent = ''; // Очищення вмісту повідомлення про помилку
+    });
 }
