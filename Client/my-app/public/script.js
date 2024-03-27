@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (nav) {
             var profileLink = document.createElement('a');
-            profileLink.href = 'userprofile.html?token='+token;
+            profileLink.href = 'user.html?token='+token;
             profileLink.classList.add('profile_icon');
 
             var userIcon = document.createElement('i');

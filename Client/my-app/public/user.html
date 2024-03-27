@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="userstyle2.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+
+<header class="header">
+    <nav class="nav">
+        <a id="navLogoLink" href="index.html" class="nav_logo">ComfortCountry</a>
+    </nav>
+</header>
+
+<div class="main">
+    <div class="photo"></div>
+   
+    <div class="info">
+        <label for="first_name_input">Name:</label>
+        <input type="text" id="first_name_input" name="first_name" readonly>
+        <label for="surname_input">Surname:</label>
+        <input type="text" id="surname_input" name="surname" readonly>
+        <label for="phoneNumber_input">Phone Number:</label>
+        <input type="text" id="phoneNumber_input" name="phoneNumber" readonly>
+        <label for="sex_input">Sex:</label>
+        <input type="text" id="sex_input" name="sex" readonly>
+        <label for="dob_input">Date of Birth:</label>
+        <input type="text" id="dob_input" name="dob" readonly>
+        <label for="country_input">Country:</label>
+        <input type="text" id="country_input" name="country" readonly>
+        <label for="email_input">Email:</label>
+        <input type="text" id="email_input" name="email" readonly>
+    </div>
+    <div class="log_out">
+        <p class="Log">Log out</p>
+    </div>
+</div>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
+    console.log(token);
+
+    if (token) {
+        axios.get('api/user/users', {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        }).then(function (response) {
+            const userInfo = response.data;
+            console.log(userInfo);
+            document.getElementById('first_name_input').value = userInfo.First_Name;
+            document.getElementById('surname_input').value = userInfo.Last_Name;
+            document.getElementById('phoneNumber_input').value = userInfo.Phone_Number;
+            document.getElementById('sex_input').value = userInfo.Gender;
+            document.getElementById('dob_input').value = userInfo.Date;
+            document.getElementById('country_input').value = userInfo.Country;
+            document.getElementById('email_input').value = userInfo.EMail;
+        }).catch(function (error) {
+            console.error('Error fetching user profile:', error);
+        });
+    } else {
+        console.error('Token not found in URL.');
+    }
+
+    function enableEditing() {
+        var inputs = document.querySelectorAll('input[readonly]');
+        for (var i = 0; i < inputs.length; i++) {
+            inputs[i].readOnly = false;
+        }
+        document.getElementById('editButton').style.display = 'none';
+        document.getElementById('saveButton').style.display = 'block';
+    }
+
+    function saveChanges() {
+        var inputs = document.querySelectorAll('input[readonly]');
+        for (var i = 0; i < inputs.length; i++) {
+            inputs[i].readOnly = true;
+        }
+        document.getElementById('saveButton').style.display = 'none';
+        document.getElementById('editButton').style.display = 'block';
+
+        alert('Зміни успішно збережено!');
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get('token');
+        if (token) {
+            document.getElementById('navLogoLink').href += '?token=' + token;
+        }
+    });
+</script>
+
+</body>
+</html>
