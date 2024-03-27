@@ -19,7 +19,10 @@
 
 <div class="main">
     <div class="photo"></div>
-   
+
+    <input class="edit_profile" type="button" id="edit_profile" value="Edit profile" onclick="enableEditing()">
+    <input class="edit_profile" type="button" id="save_changes" value="Save changes" onclick="saveChanges()" style="display:none">
+
     <div class="info">
         <label for="first_name_input">Name:</label>
         <input type="text" id="first_name_input" name="first_name" readonly>
@@ -39,15 +42,14 @@
     <button class="log_out" onclick="logout()">Log out</button>
     
 </div>
+
 <script>
     function logout(){
         window.location.href = 'index.html';
-}
-</script>
-<script>
+    }
+
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get('token');
-    console.log(token);
 
     if (token) {
         axios.get('api/user/users', {
@@ -71,27 +73,28 @@
         console.error('Token not found in URL.');
     }
 
-    // Функція для включення редагування полів
+    // Function to enable editing of input fields
     function enableEditing() {
         var inputs = document.querySelectorAll('input[readonly]');
         for (var i = 0; i < inputs.length; i++) {
             inputs[i].readOnly = false;
         }
-        document.getElementById('editButton').style.display = 'none';
-        document.getElementById('saveButton').style.display = 'block';
+        document.getElementById('edit_profile').style.display = 'none';
+        document.getElementById('save_changes').style.display = 'block';
     }
 
-    // Функція для збереження змін
+    // Function to save changes
     function saveChanges() {
         var inputs = document.querySelectorAll('input[readonly]');
         for (var i = 0; i < inputs.length; i++) {
             inputs[i].readOnly = true;
         }
-        document.getElementById('saveButton').style.display = 'none';
-        document.getElementById('editButton').style.display = 'block';
+        document.getElementById('save_changes').style.display = 'none';
+        document.getElementById('edit_profile').style.display = 'block';
 
-        alert('Зміни успішно збережено!');
+        alert('Changes successfully saved!');
     }
+
     document.addEventListener("DOMContentLoaded", function() {
         const urlParams = new URLSearchParams(window.location.search);
         const token = urlParams.get('token');
@@ -103,17 +106,21 @@
 
 <script>
     function displayProfilePicture(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            document.getElementById('profile_picture').setAttribute('src', e.target.result);
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById('profile_picture').setAttribute('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
         }
-        reader.readAsDataURL(input.files[0]);
     }
-}
 
-// Обробник події для завантаження фотографії
-document.getElementById('profile_picture_input').addEventListener('change', function() {
-    displayProfilePicture(this);
-});
+    // Event handler for uploading profile picture
+    document.getElementById('profile_picture_input').addEventListener('change', function() {
+        displayProfilePicture(this);
+    });
 </script>
+
+
+</body>
+</html>
