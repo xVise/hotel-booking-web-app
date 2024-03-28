@@ -9,6 +9,7 @@ router.post("/Email_code",controller.GetEmail)
 router.post("/Code",controller.SendCode)
 router.post("/newpass",controller.NewPass)
 router.post("/registrationCode",controller.RegCode)
+router.post("/Updateinfo",controller.Update)
 router.get("/decode",controller.RegcodeDecoder)
 router.get("/users",authMiddleware,controller.getUsers)
 

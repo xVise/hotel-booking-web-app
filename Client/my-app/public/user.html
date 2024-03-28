@@ -84,14 +84,38 @@
     }
 
     // Function to save changes
-    function saveChanges() {
+    async function saveChanges() {
         var inputs = document.querySelectorAll('input[readonly]');
         for (var i = 0; i < inputs.length; i++) {
             inputs[i].readOnly = true;
         }
+        const firstName = document.getElementById("first_name_input").value;
+        const lastName = document.getElementById("surname_input").value;
+        const sex = document.getElementById("sex_input").value;
+        const bDate = document.getElementById("dob_input").value;
+        const telephone = document.getElementById("phoneNumber_input").value;
+        const country = document.getElementById("country_input").value;
+        const email = document.getElementById("email_input").value;
+        console.log(email);
         document.getElementById('save_changes').style.display = 'none';
         document.getElementById('edit_profile').style.display = 'block';
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get('token');
 
+        await axios.post('api/user/Updateinfo', {
+
+
+            firstName: firstName,
+            lastName: lastName,
+            sex: sex,
+            bDate: bDate,
+            telephone: telephone,
+            country: country,
+            EMail: email,
+            Authorization:  token,
+            }).then(function (response){
+                console.log("ok")
+        });
         alert('Changes successfully saved!');
     }
 

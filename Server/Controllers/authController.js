@@ -95,6 +95,29 @@ class  AuthController{
             res.status(400).json({message:"Registration error"})
         }
     }
+    async Update(req,res){
+        try{
+            const { firstName, lastName, sex, bDate, telephone, country, EMail,Authorization } = req.body;
+            const decodedToken = decodeToken(Authorization, secret);
+
+            const users=await User.findById(decodedToken.id);
+            console.log(users)
+            console.log("Server")
+            const result=await User.updateOne({_id:decodedToken.id},{
+                First_Name: firstName,
+                Last_Name: lastName,
+                EMail: EMail,
+                Phone_Number: telephone,
+                Gender:sex,
+                Date:bDate,
+                Country:country,
+            })
+            return res.json("ok")
+        }catch (e) {
+            console.log(e)
+            res.status(400).json({message:"Registration error"})
+        }
+    }
     async login(req,res){
         try {
             const {EMail,Password}=req.body
