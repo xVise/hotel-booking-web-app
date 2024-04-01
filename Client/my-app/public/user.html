@@ -18,7 +18,9 @@
 </header>
 
 <div class="main">
-    <div class="photo"></div>
+    
+        <img class="photo" id="profile_picture" src="" alt="User's Photo">
+  
 
     <input class="edit_profile" type="button" id="edit_profile" value="Edit profile" onclick="enableEditing()">
     <input class="edit_profile" type="button" id="save_changes" value="Save changes" onclick="saveChanges()" style="display:none">
@@ -66,6 +68,15 @@
             document.getElementById('dob_input').value = userInfo.Date;
             document.getElementById('country_input').value = userInfo.Country;
             document.getElementById('email_input').value = userInfo.EMail;
+            const profilePicture = document.getElementById('profile_picture');
+// Спочатку створіть Blob з даних буфера
+const blob = new Blob([new Uint8Array(userInfo.Photo.photoData.data)], { type: 'image/jpeg' });
+// Створіть URL для Blob
+const imgUrl = URL.createObjectURL(blob);
+// Встановіть URL як src для зображення
+profilePicture.src = imgUrl;
+// Необов'язково, але можна встановити альтернативний текст
+profilePicture.alt = "User's Photo";
         }).catch(function (error) {
             console.error('Error fetching user profile:', error);
         });

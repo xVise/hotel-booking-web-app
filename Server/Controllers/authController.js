@@ -3,6 +3,8 @@ const User=require('../Module/User')
 const  Region=require("../Module/Region")
 const  axios=require("axios")
 const bcrypt = require('bcryptjs');
+const fs = require('fs');
+const path = require('path');
 const jwt=require("jsonwebtoken")
 const {secret}=require("./config")
 const {validationResult}=require("express-validator")
@@ -178,31 +180,49 @@ class  AuthController{
             res.status(500).json({ message: 'Internal server error' })
         }
     }
-    async RegCode(req,res){
+    async RegCode(req, res) {
         try {
-            console.log("ok")
+            console.log("ok");
             const { firstName, lastName, sex, bDate, telephone, country, email, heshpassword } = req.body;
-            console.log("Server")
-            console.log(heshpassword)
-            const Reg_inform=User({
-                First_Name: firstName,
-                Last_Name: lastName,
-                EMail: email,
-                Password: heshpassword,
-                Phone_Number: telephone,
-                Gender:sex,
-                Date:bDate,
-                Country:country,
-                Roles:"USER",
-            })
-            console.log(Reg_inform)
-            await Reg_inform.save()
-            return res.json("Ok")
-        }catch (e) {
-            console.error('Error fetching user profile:', e)
-            res.status(500).json({ message: 'Internal server error' })
+            const photodata = path.join(__dirname, '..', 'photo', 'phot.jpg');
+            fs.readFile(photodata, async (err, data) => {
+                if (err) {
+                    console.error(err);
+                    return res.status(500).json({ message: 'Internal server error' });
+                }
+                console.log("Server");
+                console.log(heshpassword);
+                try {
+                    const Reg_inform = new User({
+                        First_Name: firstName,
+                        Last_Name: lastName,
+                        EMail: email,
+                        Password: heshpassword,
+                        Phone_Number: telephone,
+                        Gender: sex,
+                        Date: bDate,
+                        Country: country,
+                        Photo: {
+                            photoData: data
+                        },
+                        Roles: "USER",
+                    });
+                    console.log(Reg_inform);
+                    await Reg_inform.save();
+                    console.log('User profile saved:', Reg_inform);
+                    return res.json("Ok");
+                } catch (error) {
+                    console.error('Error saving user profile:', error);
+                    return res.status(500).json({ message: 'Internal server error' });
+                }
+            });
+        } catch (e) {
+            console.error('Error fetching user profile:', e);
+            res.status(500).json({ message: 'Internal server error' });
         }
     }
+    
+    
     async SendCode(req,res){
         try {
             const {EMail}=req.body

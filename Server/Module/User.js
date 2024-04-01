@@ -8,6 +8,7 @@ const User=new Schema({
     Gender:{type:String,require:true},
     Date:{type:String,require:true},
     Country:{type:String,require:true},
+    Photo:{ photoData: Buffer},
     //Pronounce:{type:String,require:true},
     Roles:{type:String,ref:"Role"},
 })
