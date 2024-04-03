@@ -19,9 +19,12 @@
 
 <div class="main">
     
+    <div>
         <img class="photo" id="profile_picture" src="" alt="User's Photo">
+        <input class="Choose_photo" type="file" id="profile_picture_input" accept="image/*" onchange="displayProfilePicture(this)">
+    </div>
+    
   
-
     <input class="edit_profile" type="button" id="edit_profile" value="Edit profile" onclick="enableEditing()">
     <input class="edit_profile" type="button" id="save_changes" value="Save changes" onclick="saveChanges()" style="display:none">
 
@@ -33,17 +36,39 @@
         <label for="phoneNumber_input">Phone Number:</label>
         <input type="text" id="phoneNumber_input" name="phoneNumber" readonly>
         <label for="sex_input">Sex:</label>
-        <input type="text" id="sex_input" name="sex" readonly>
+        <select id="sex_input" name="sex">
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+            <option value="Not_specified">Not Specified</option>
+        </select>
         <label for="dob_input">Date of Birth:</label>
-        <input type="text" id="dob_input" name="dob" readonly>
+        <input type="date" id="dob_input" name="dob" readonly>
         <label for="country_input">Country:</label>
-        <input type="text" id="country_input" name="country" readonly>
+        <select id="country_input" name="country"></select>
         <label for="email_input">Email:</label>
         <input type="text" id="email_input" name="email" readonly>
     </div>
     <button class="log_out" onclick="logout()">Log out</button>
     
 </div>
+<script>
+
+    fetch('https://raw.githubusercontent.com/samayo/country-json/master/src/country-by-abbreviation.json')
+      .then(response => response.json())
+      .then(data => {
+        const select = document.getElementById('country_input');
+        // Додаємо кожну країну до списку
+        data.forEach(country => {
+          const option = document.createElement('option');
+          option.text = country.country; // Назва країни
+          select.appendChild(option);
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching country list:', error);
+      });
+    </script>
 
 <script>
     function logout(){
@@ -84,59 +109,123 @@ profilePicture.alt = "User's Photo";
         console.error('Token not found in URL.');
     }
 
-    // Function to enable editing of input fields
-    function enableEditing() {
-        var inputs = document.querySelectorAll('input[readonly]');
-        for (var i = 0; i < inputs.length; i++) {
-            inputs[i].readOnly = false;
-        }
-        document.getElementById('edit_profile').style.display = 'none';
-        document.getElementById('save_changes').style.display = 'block';
+   // Function to enable editing of input fields
+function enableEditing() {
+    var inputs = document.querySelectorAll('input[readonly]');
+    for (var i = 0; i < inputs.length; i++) {
+        inputs[i].readOnly = false;
+    }
+    document.getElementById('edit_profile').style.display = 'none';
+    document.getElementById('save_changes').style.display = 'block';
+}
+
+// Function to validate email format
+function validateEmail(email) {
+    const regex = /\S+@\S+\.\S+/;
+    return regex.test(email);
+}
+
+// Function to validate phone number format
+function validatePhoneNumber(phoneNumber) {
+    const regex = /^\d{10}$/; // Assuming the phone number consists of 10 digits
+    return regex.test(phoneNumber);
+}
+
+// Function to display error message below the field
+function displayError(fieldId, errorMessage) {
+    const field = document.getElementById(fieldId);
+    const errorElementId = `${fieldId}_error`;
+    let errorElement = document.getElementById(errorElementId);
+
+    if (!errorElement) {
+        errorElement = document.createElement('div');
+        errorElement.id = errorElementId;
+        errorElement.classList.add('error-message');
+        field.parentNode.insertBefore(errorElement, field.nextSibling);
     }
 
-    // Function to save changes
-    async function saveChanges() {
-        var inputs = document.querySelectorAll('input[readonly]');
-        for (var i = 0; i < inputs.length; i++) {
-            inputs[i].readOnly = true;
-        }
-        const firstName = document.getElementById("first_name_input").value;
-        const lastName = document.getElementById("surname_input").value;
-        const sex = document.getElementById("sex_input").value;
-        const bDate = document.getElementById("dob_input").value;
-        const telephone = document.getElementById("phoneNumber_input").value;
-        const country = document.getElementById("country_input").value;
-        const email = document.getElementById("email_input").value;
-        console.log(email);
-        document.getElementById('save_changes').style.display = 'none';
-        document.getElementById('edit_profile').style.display = 'block';
-        const urlParams = new URLSearchParams(window.location.search);
-        const token = urlParams.get('token');
+    errorElement.textContent = errorMessage;
+}
 
-        await axios.post('api/user/Updateinfo', {
+// Function to hide error message
+function hideError(fieldId) {
+    const errorElementId = `${fieldId}_error`;
+    const errorElement = document.getElementById(errorElementId);
+    if (errorElement) {
+        errorElement.textContent = '';
+    }
+}
 
+// Function to validate all fields before saving changes
+function validateFields() {
+    const email = document.getElementById('email_input').value;
+    const phoneNumber = document.getElementById('phoneNumber_input').value;
 
-            firstName: firstName,
-            lastName: lastName,
-            sex: sex,
-            bDate: bDate,
-            telephone: telephone,
-            country: country,
-            EMail: email,
-            Authorization:  token,
-            }).then(function (response){
-                console.log("ok")
-        });
-        alert('Changes successfully saved!');
+    let isValid = true;
+
+    if (!validateEmail(email)) {
+        displayError('email_input', 'Invalid email address. Format: example@tag.tag');
+        isValid = false;
+    } else {
+        hideError('email_input');
     }
 
-    document.addEventListener("DOMContentLoaded", function() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const token = urlParams.get('token');
-        if (token) {
-            document.getElementById('navLogoLink').href += '?token=' + token;
-        }
+    if (!validatePhoneNumber(phoneNumber)) {
+        displayError('phoneNumber_input', 'Invalid phone number. Please enter format like 096123456.');
+        isValid = false;
+    } else {
+        hideError('phoneNumber_input');
+    }
+
+    return isValid;
+}
+
+// Function to save changes
+async function saveChanges() {
+    if (!validateFields()) {
+        return; // If validation fails, do not proceed with saving
+    }
+
+    var inputs = document.querySelectorAll('input[readonly]');
+    for (var i = 0; i < inputs.length; i++) {
+        inputs[i].readOnly = true;
+    }
+    const firstName = document.getElementById("first_name_input").value;
+    const lastName = document.getElementById("surname_input").value;
+    const sex = document.getElementById("sex_input").value;
+    const bDate = document.getElementById("dob_input").value;
+    const telephone = document.getElementById("phoneNumber_input").value;
+    const country = document.getElementById("country_input").value;
+    const email = document.getElementById("email_input").value;
+    console.log(email);
+    document.getElementById('save_changes').style.display = 'none';
+    document.getElementById('edit_profile').style.display = 'block';
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
+
+    await axios.post('api/user/Updateinfo', {
+        firstName: firstName,
+        lastName: lastName,
+        sex: sex,
+        bDate: bDate,
+        telephone: telephone,
+        country: country,
+        EMail: email,
+        Authorization: token,
+    }).then(function (response) {
+        console.log("ok")
     });
+    alert('Changes successfully saved!');
+    window.location.reload();
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
+    if (token) {
+        document.getElementById('navLogoLink').href += '?token=' + token;
+    }
+});
 </script>
 
 <script>

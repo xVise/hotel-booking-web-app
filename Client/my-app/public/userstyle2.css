@@ -130,3 +130,15 @@ label {
     font-weight: bold;
     margin-bottom: 5px;
 }
+select{
+    margin-bottom: 20px;
+}
+.error-message{
+    color: #ff0000;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.Choose_photo {
+    margin-left: 190px;
+}
