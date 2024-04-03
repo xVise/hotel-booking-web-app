@@ -99,12 +99,16 @@ class  AuthController{
     }
     async Update(req,res){
         try{
-            const { firstName, lastName, sex, bDate, telephone, country, EMail,Authorization } = req.body;
+            const { firstName, lastName, sex, bDate, telephone, country, EMail, Photo, Authorization } = req.body;
             const decodedToken = decodeToken(Authorization, secret);
-
+           
             const users=await User.findById(decodedToken.id);
             console.log(users)
             console.log("Server")
+            console.log(Photo);
+            const photoBuffer = Buffer.from(Photo, 'base64');
+            console.log("Server121313")
+            console.log(photoBuffer)
             const result=await User.updateOne({_id:decodedToken.id},{
                 First_Name: firstName,
                 Last_Name: lastName,
@@ -112,6 +116,9 @@ class  AuthController{
                 Phone_Number: telephone,
                 Gender:sex,
                 Date:bDate,
+                Photo: {
+                    photoData: photoBuffer 
+                },
                 Country:country,
             })
             return res.json("ok")

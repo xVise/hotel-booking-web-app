@@ -202,19 +202,22 @@ async function saveChanges() {
     document.getElementById('edit_profile').style.display = 'block';
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get('token');
+  
+    const base64Photo = profilePictureData.split(',')[1]; // Видалення частини з "data:image/png;base64,"
 
-    await axios.post('api/user/Updateinfo', {
-        firstName: firstName,
-        lastName: lastName,
-        sex: sex,
-        bDate: bDate,
-        telephone: telephone,
-        country: country,
-        EMail: email,
-        Authorization: token,
-    }).then(function (response) {
-        console.log("ok")
-    });
+await axios.post('api/user/Updateinfo', {
+    firstName: firstName,
+    lastName: lastName,
+    sex: sex,
+    bDate: bDate,
+    telephone: telephone,
+    country: country,
+    EMail: email,
+    Photo: base64Photo, // Передача даних фото як рядок
+    Authorization: token,
+}).then(function (response) {
+    console.log("ok")
+});
     alert('Changes successfully saved!');
     window.location.reload();
 }
@@ -229,10 +232,13 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 
 <script>
+    var profilePictureData;
     function displayProfilePicture(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
             reader.onload = function (e) {
+                profilePictureData = e.target.result;
+                console.log(profilePictureData);
                 document.getElementById('profile_picture').setAttribute('src', e.target.result);
             }
             reader.readAsDataURL(input.files[0]);
