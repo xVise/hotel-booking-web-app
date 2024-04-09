@@ -142,3 +142,36 @@ select{
 .Choose_photo {
     margin-left: 190px;
 }
+.file_input {
+    margin-top: 20px;
+    display: inline-block;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-left: 100px;
+    text-align: center; /* Відцентрувати текст в середині розділу */
+}
+.button_input{
+    margin-top: 10px;
+}
+.file_input input[type="file"]::-webkit-file-upload-button {
+    display: none;
+  }
+  
+  .file_input input[type="file"] {
+    border: 1px solid #ccc;
+    padding: 5px;
+    width: 200px;
+  }
+  
+  .file_input input[type="file"]:focus {
+    border-color: #000;
+  }
+  
+  .file_input .button_input {
+    margin-top: 10px;
+  }
+  .photo_text{
+    margin-left: 170px;
+  }
+  

@@ -12,6 +12,7 @@ router.post("/registrationCode",controller.RegCode)
 router.post("/Updateinfo",controller.Update)
 router.get("/decode",controller.RegcodeDecoder)
 router.get("/users",authMiddleware,controller.getUsers)
+router.post('/files', controller.uploadMiddleware, controller.Filedownload);
 
 
 module.exports=router

@@ -21,10 +21,18 @@
     
     <div>
         <img class="photo" id="profile_picture" src="" alt="User's Photo">
+        <div><h3 class="photo_text">Додавання фото</h3></div>
         <input class="Choose_photo" type="file" id="profile_picture_input" accept="image/*" onchange="displayProfilePicture(this)">
+    <div class="file_input">
+         <h3>Додавання файлу для зберігання</h3>
+         <!-- <form action="api/user/files" method="post" enctype="multipart/form-data"> -->
+          <input type="file" name="fileToUpload" id="fileToUpload">
+        <!-- <div> -->
+      <input class="button_input" type="button" value="Завантажити файл" name="submit"onclick="uploadFile()">
+ </div> 
+<!-- </form> -->
+<!-- </div> -->
     </div>
-    
-  
     <input class="edit_profile" type="button" id="edit_profile" value="Edit profile" onclick="enableEditing()">
     <input class="edit_profile" type="button" id="save_changes" value="Save changes" onclick="saveChanges()" style="display:none">
 
@@ -183,7 +191,7 @@ function validateFields() {
 // Function to save changes
 async function saveChanges() {
     if (!validateFields()) {
-        return; // If validation fails, do not proceed with saving
+        return; // Якщо валідація не пройшла, не продовжувати збереження
     }
 
     var inputs = document.querySelectorAll('input[readonly]');
@@ -197,30 +205,56 @@ async function saveChanges() {
     const telephone = document.getElementById("phoneNumber_input").value;
     const country = document.getElementById("country_input").value;
     const email = document.getElementById("email_input").value;
-    console.log(email);
+    
     document.getElementById('save_changes').style.display = 'none';
     document.getElementById('edit_profile').style.display = 'block';
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get('token');
-  
-    const base64Photo = profilePictureData.split(',')[1]; // Видалення частини з "data:image/png;base64,"
+    let base64Photo;
 
-await axios.post('api/user/Updateinfo', {
-    firstName: firstName,
-    lastName: lastName,
-    sex: sex,
-    bDate: bDate,
-    telephone: telephone,
-    country: country,
-    EMail: email,
-    Photo: base64Photo, // Передача даних фото як рядок
-    Authorization: token,
-}).then(function (response) {
-    console.log("ok")
-});
-    alert('Changes successfully saved!');
-    window.location.reload();
+    try {
+        base64Photo = profilePictureData.split(',')[1]; // Видалення частини з "data:image/png;base64,"
+    } catch(error) {
+        // Якщо виникає помилка, спробуйте отримати фото з сервера
+        if (token) {
+            try {
+                const response = await axios.get('api/user/users', {
+                    headers: {
+                        Authorization: 'Bearer ' + token
+                    }
+                });
+                const userInfo = response.data;
+                
+                
+                base64Photo = userInfo.Photo.photoData.data;
+            } catch (error) {
+                console.error("An error occurred while fetching user data: " + error.message);
+            }
+        }
+    }
+
+    
+
+    try {
+        await axios.post('api/user/Updateinfo', {
+            firstName: firstName,
+            lastName: lastName,
+            sex: sex,
+            bDate: bDate,
+            telephone: telephone,
+            country: country,
+            EMail: email,
+            Photo: base64Photo, // Передача даних фото як рядок base64
+            Authorization: token,
+        });
+        console.log("ok");
+        alert('Changes successfully saved!');
+        window.location.reload();
+    } catch (error) {
+        console.error("An error occurred while saving changes: " + error.message);
+    }
 }
+
 
 document.addEventListener("DOMContentLoaded", function () {
     const urlParams = new URLSearchParams(window.location.search);
@@ -233,7 +267,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 <script>
     var profilePictureData;
-    function displayProfilePicture(input) {
+    async function displayProfilePicture(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
             reader.onload = function (e) {
@@ -244,11 +278,34 @@ document.addEventListener("DOMContentLoaded", function () {
             reader.readAsDataURL(input.files[0]);
         }
     }
+    async function uploadFile() {
+    const fileInput = document.getElementById("fileToUpload");
+    const file = fileInput.files[0];
+    
+    if (!file) {
+        console.error("No file selected");
+        return;
+    }
+    
+    const formData = new FormData();
+    formData.append('file', file);
+    console.log(formData)
 
-    // Event handler for uploading profile picture
-    document.getElementById('profile_picture_input').addEventListener('change', function() {
-        displayProfilePicture(this);
-    });
+    try {
+        const response = await axios.post('api/user/files', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+        console.log("File uploaded successfully");
+        console.log("Response:", response.data);
+    } catch (error) {
+        console.error("An error occurred while uploading the file:", error);
+    }
+}
+
+
+    
 </script>
 
 

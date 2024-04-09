@@ -1,6 +1,7 @@
 const Role=require("../Module/Role")
 const User=require('../Module/User')
 const  Region=require("../Module/Region")
+const Files=require('../Module/File')
 const  axios=require("axios")
 const bcrypt = require('bcryptjs');
 const fs = require('fs');
@@ -9,6 +10,8 @@ const jwt=require("jsonwebtoken")
 const {secret}=require("./config")
 const {validationResult}=require("express-validator")
 const nodemailer = require('nodemailer');
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' }); 
 
 const decodeToken = (token, secret) => {
     try {
@@ -77,6 +80,44 @@ function generateVerificationCode() {
     return Math.random().toString(36).substr(2, 6);
 }
 class  AuthController{
+    async Filedownload(req, res, next) {
+        try {
+            const uploadedFile = req.file;
+            const newFile = new Files({
+                filename: uploadedFile.originalname,
+                mimetype: uploadedFile.mimetype,
+                size: uploadedFile.size,
+                data: uploadedFile.buffer // buffer - це дані файлу
+            });
+    
+            // Зберігаємо файл у базі даних
+            await newFile.save();
+            console.log(uploadedFile); // Це об'єкт файлу, який містить інформацію про завантажений файл
+            res.status(200).json({ message: "File uploaded successfully" });
+        } catch (error) {
+            console.error(error);
+            res.status(400).json({ message: "Error uploading file" });
+        }
+    }
+
+    // Додайте middleware для завантаження файлів перед викликом методу Filedownload
+    uploadMiddleware(req, res, next) {
+        upload.single('file')(req, res, (err) => {
+            if (err instanceof multer.MulterError) {
+                // Обробка помилок, пов'язаних з multer
+                console.error("Multer Error:", err);
+                return res.status(400).json({ message: "Error uploading file" });
+            } else if (err) {
+                // Інші помилки
+                console.error("Other Error:", err);
+                return res.status(500).json({ message: "Internal server error" });
+            }
+            // Якщо все в порядку, передаємо управління методу Filedownload
+            next();
+        });
+    }
+    
+
     async registration(req,res){
         try {
             const errors=validationResult(req)
