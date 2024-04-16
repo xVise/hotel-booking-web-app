@@ -38,7 +38,46 @@
         <div id="fileWidget" class="widget-container">
             <button class="close-button" onclick="toggleWidget()">✖</button> <!-- Кнопка для закриття віджета -->
             <h3>Виберіть файл</h3>
-            <!-- Тут можна додати поля для вибору файлу або інший вміст віджета -->
+            <ul id="fileList"></ul>
+
+<!-- JavaScript для відправки запиту на сервер та відображення файлів -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        fetchFiles();
+    });
+
+    async function fetchFiles() {
+    try {
+        const response = await axios.get('/api/user/filesUpload', {
+            headers: {
+                Authorization: token // Ваш токен авторизації
+            }
+        });
+
+        const files = response.data;
+
+        const fileList = document.getElementById('fileList');
+        fileList.innerHTML = '';
+        console.log(files);
+        files.forEach(file => {
+            console.log(file._id)
+            const listItem = document.createElement('li');
+            const link = document.createElement('a');
+            link.href = `/api/user/${file._id}`;
+            link.textContent = file.filename;
+            listItem.appendChild(link);
+            fileList.appendChild(listItem);
+        });
+    } catch (error) {
+        console.error('Помилка при отриманні файлів:', error);
+    }
+}
+
+    
+
+
+
+</script>
         </div>
     </div>
 
@@ -303,8 +342,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
     async function uploadFile() {
-    const fileInput = document.getElementById("fileToUpload");
-    const file = fileInput.files[0];
+        const fileInput = document.getElementById("fileToUpload");
+const file = fileInput.files[0];
+
     
     if (!file) {
         console.error("No file selected");
@@ -313,11 +353,12 @@ document.addEventListener("DOMContentLoaded", function () {
     
     const formData = new FormData();
     formData.append('file', file);
-    console.log(formData)
-
+    console.log(file)
+    console.log(token);
     try {
         const response = await axios.post('api/user/files', formData, {
             headers: {
+                Authorization:  token,
                 'Content-Type': 'multipart/form-data'
             }
         });

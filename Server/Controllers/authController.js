@@ -82,12 +82,20 @@ function generateVerificationCode() {
 class  AuthController{
     async Filedownload(req, res, next) {
         try {
+            console.log(req.headers)
+            var token=req.headers.authorization;
+            console.log(token)
+            const decodedToken = decodeToken(token, secret);
+            console.log("|||||||||||||||||||||")
+            console.log(req)
+            
             const uploadedFile = req.file;
             const newFile = new Files({
                 filename: uploadedFile.originalname,
                 mimetype: uploadedFile.mimetype,
                 size: uploadedFile.size,
-                data: uploadedFile.buffer // buffer - це дані файлу
+                path: uploadedFile.path, // buffer - це дані файлу
+                User_Id:decodedToken.id
             });
     
             // Зберігаємо файл у базі даних
@@ -116,8 +124,47 @@ class  AuthController{
             next();
         });
     }
-    
-
+    async FileUpload(req, res, next) {
+        try {
+            console.log(req.headers.authorization)
+            var token=req.headers.authorization
+            const decodedToken = decodeToken(token, secret);
+            console.log(decodedToken)
+            
+            const file = await Files.find({ User_Id: decodedToken.id });
+        
+            console.log(file)
+            if (file) {
+                res.set('Content-Type', 'application/octet-stream'); // Встановлюємо загальний тип медіа
+                res.send(file);
+            } else {
+                res.status(404).json({ message: 'Файл не знайдено' });
+            }
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Помилка сервера' });
+        }
+    }
+    async Download(req,res){
+        try {
+        
+                    const file_ID = req.params._id;
+                    console.log(file_ID)
+                    // Зчитуємо файл з MongoDB за його ім'ям
+                    const file = await Files.findById(file_ID);
+                    if (file) {
+                        // Якщо файл знайдено, відправляємо його клієнту
+                        res.set('Content-Type', file.mimetype); // Встановлюємо тип контенту з файлу
+                        res.send(file.data.buffer); // Відправляємо дані файлу як буфер
+                    } else {
+                        // Якщо файл не знайдено, повертаємо статус 404
+                        res.status(404).json({ message: 'Файл не знайдено' });
+                    }
+                } catch (error) {
+                    console.error(error);
+                    res.status(500).json({ message: 'Помилка сервера' });
+                }
+    }
     async registration(req,res){
         try {
             const errors=validationResult(req)

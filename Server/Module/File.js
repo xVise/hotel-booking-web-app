@@ -3,6 +3,7 @@ const Files=new Schema({
     filename: String, // Назва файлу
   mimetype: String, // MIME-тип файлу
   size: Number, // Розмір файлу
-  data: Buffer // Дані файлу у вигляді буфера
+  path: String, // Дані файлу у вигляді буфера
+  User_Id:{type:String ,ref:"User"}
 })
 module.exports=model("Files",Files)
