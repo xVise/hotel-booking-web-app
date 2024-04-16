@@ -175,3 +175,34 @@ select{
     margin-left: 170px;
   }
   
+  .file-button {
+    margin-top: 10px;
+    margin-left: 200px;
+  }
+
+  .close-button {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    }
+
+  /* Стилі для віджета */
+  .widget-container {
+        font-size: 15px;
+        text-align: center;
+        display: none;
+        position: fixed;
+        top: 43%;
+        left: 34%;
+        transform: translate(-50%, -50%);
+        width: 400px;
+        height: 500px;
+        background-color: #fff;
+        border: 2px solid #ccc;
+        border-radius: 10px;
+        z-index: 9999; /* Забезпечити, щоб віджет був над іншим вмістом */
+    }

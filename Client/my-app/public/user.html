@@ -29,7 +29,19 @@
           <input type="file" name="fileToUpload" id="fileToUpload">
         <!-- <div> -->
       <input class="button_input" type="button" value="Завантажити файл" name="submit"onclick="uploadFile()">
- </div> 
+    </div> 
+
+    <div>
+        <!-- Кнопка "Переглянути файли" -->
+        <button class="file-button" onclick="toggleWidget()">Переглянути файли</button>
+        <!-- Віджет для вибору файлу -->
+        <div id="fileWidget" class="widget-container">
+            <button class="close-button" onclick="toggleWidget()">✖</button> <!-- Кнопка для закриття віджета -->
+            <h3>Виберіть файл</h3>
+            <!-- Тут можна додати поля для вибору файлу або інший вміст віджета -->
+        </div>
+    </div>
+
 <!-- </form> -->
 <!-- </div> -->
     </div>
@@ -58,8 +70,20 @@
         <input type="text" id="email_input" name="email" readonly>
     </div>
     <button class="log_out" onclick="logout()">Log out</button>
-    
 </div>
+
+<script>
+    // Функція для відображення/приховування віджета
+    function toggleWidget() {
+        var widget = document.getElementById("fileWidget");
+        if (widget.style.display === "none") {
+            widget.style.display = "block"; // Показати віджет при натисканні
+        } else {
+            widget.style.display = "none"; // Приховати віджет, якщо він вже відображений
+        }
+    }
+</script>
+
 <script>
 
     fetch('https://raw.githubusercontent.com/samayo/country-json/master/src/country-by-abbreviation.json')
