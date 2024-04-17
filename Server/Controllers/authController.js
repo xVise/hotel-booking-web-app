@@ -11,7 +11,10 @@ const {secret}=require("./config")
 const {validationResult}=require("express-validator")
 const nodemailer = require('nodemailer');
 const multer = require('multer');
-const upload = multer({ dest: 'uploads/' }); 
+const storage = multer.memoryStorage(); // Зберігання файлу у вигляді буфера в пам'яті
+const upload = multer({ storage: storage });
+
+
 
 const decodeToken = (token, secret) => {
     try {
@@ -82,19 +85,17 @@ function generateVerificationCode() {
 class  AuthController{
     async Filedownload(req, res, next) {
         try {
-            console.log(req.headers)
             var token=req.headers.authorization;
-            console.log(token)
             const decodedToken = decodeToken(token, secret);
             console.log("|||||||||||||||||||||")
-            console.log(req)
+            console.log(req.body)
             
             const uploadedFile = req.file;
             const newFile = new Files({
                 filename: uploadedFile.originalname,
                 mimetype: uploadedFile.mimetype,
                 size: uploadedFile.size,
-                path: uploadedFile.path, // buffer - це дані файлу
+                data: uploadedFile.buffer,// buffer - це дані файлу
                 User_Id:decodedToken.id
             });
     
@@ -109,7 +110,7 @@ class  AuthController{
     }
 
     // Додайте middleware для завантаження файлів перед викликом методу Filedownload
-    uploadMiddleware(req, res, next) {
+     uploadMiddleware(req, res, next) {
         upload.single('file')(req, res, (err) => {
             if (err instanceof multer.MulterError) {
                 // Обробка помилок, пов'язаних з multer
@@ -120,7 +121,7 @@ class  AuthController{
                 console.error("Other Error:", err);
                 return res.status(500).json({ message: "Internal server error" });
             }
-            // Якщо все в порядку, передаємо управління методу Filedownload
+            // Якщо все в порядку, передаємо управління наступному middleware або обробнику запиту
             next();
         });
     }

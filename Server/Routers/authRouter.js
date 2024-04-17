@@ -1,5 +1,7 @@
 const Router=require("express")
 const router=new Router()
+const path = require('path');
+const fs = require('fs');
 const controller =require("../Controllers/authController")
 const {check}=require("express-validator")
 const Files = require('../Module/File');
@@ -20,10 +22,11 @@ router.get('/:_id', async (req, res) => {
         const file_ID = req.params._id;
         // Зчитуємо файл з MongoDB за його _id
         const file = await Files.findById(file_ID);
-        console.log(file)
         if (file) {
-            // Якщо файл знайдено, відправляємо його клієнту
-            res.sendFile(file.path); // Відправляємо файл клієнту
+            // Відправляємо файл клієнту
+            res.setHeader('Content-Disposition', `attachment; filename="${file.filename}"`);
+            res.setHeader('Content-Type', file.mimetype);
+            res.send(file.data);
         } else {
             // Якщо файл не знайдено, повертаємо статус 404
             res.status(404).json({ message: 'Файл не знайдено' });
