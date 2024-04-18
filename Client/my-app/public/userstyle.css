@@ -1,0 +1,107 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+.header {
+    background-color: #7D0DC3;
+    padding: 10px;
+    position: fixed;
+    height: 100px;
+    width: 100%;
+    z-index: 100;
+}
+
+.nav {
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.nav,
+.nav_item {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav_logo {
+    font-size: 25px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.container {
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 150px;
+    padding: 70px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#profile_picture {
+    max-width: 200px; /* Змінено максимальну ширину фото */
+    max-height: 200px; /* Додано максимальну висоту фото */
+    display: block;
+    margin: 0 auto; /* Центрування фото */
+    margin-top: 20px; /* Додано відступ між фото і текстовими полями */
+}
+
+
+
+h1 {
+    margin: 0 auto;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input[type="text"] {
+    border: none;
+    border-bottom: 1px solid #ccc; /* підкреслення поля вводу */
+    outline: none;
+    margin-bottom: 20px;
+    padding: 5px;
+    width: 100%;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #7D0DC3;
+    color: #ffffff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #5e079f;
+}
+

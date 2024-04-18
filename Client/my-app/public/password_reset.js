@@ -23,12 +23,12 @@ async function Get_Email_for_Cod() {
                     var messageDiv = document.createElement('div');
                     messageDiv.textContent = 'Користувача не знайдено'; // Текст повідомлення
                     messageDiv.style.position = 'fixed'; // Фіксована позиція, щоб повідомлення було поверх інших елементів
-                    messageDiv.style.top = '30%'; // Вертикальне центрування
+                    messageDiv.style.top = '23%'; // Вертикальне центрування
                     messageDiv.style.left = '50%'; // Горизонтальне центрування
                     messageDiv.style.transform = 'translate(-50%, -50%)'; // Центрування відносно центра вікна
-                    messageDiv.style.backgroundColor = '#fff'; // Колір фону
+                    messageDiv.style.backgroundColor = '#ffcccc'; // Колір фону
                     messageDiv.style.padding = '20px'; // Відступи
-                    messageDiv.style.border = '2px solid #000'; // Рамка
+                    messageDiv.style.border = '2px solid #ff0000'; // Рамка
                     messageDiv.style.zIndex = '9999'; // Встановлення високого значення z-index, щоб перекривати інші елементи
                     messageDiv.style.boxShadow = '0px 0px 10px rgba(0,0,0,0.5)'; // Тінь
                     document.body.appendChild(messageDiv);

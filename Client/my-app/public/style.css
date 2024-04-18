@@ -47,7 +47,9 @@ a {
     cursor: pointer;
     font-weight: bolder;
 }
-
+.male{
+    margin-left: 20px;
+}
 .button:active {
     transform: scale(0.98);
 }
@@ -153,8 +155,16 @@ a {
 .input_box i.uil-phone,
 .input_box i.password {
     left: 0;
+    display: flex;
 }
-
+#country {
+    margin-left: 40px;
+    margin-top: 10px;
+}
+#male {
+    margin-left: 40px;
+    margin-top: 10px;
+}
 
 .input_box input:focus ~ i.email,
 .input_box input:focus ~ i.password {
@@ -205,4 +215,22 @@ a {
     text-align: center;
     margin-top: 15px;
 
+}
+
+.profile_icon {
+    display: none;
+    position: absolute; 
+    right: 12%; 
+    top: 50%; 
+    transform: translateY(-50%);
+}
+
+.profile_icon i {
+    font-size: 40px;
+    color: #ffffff;
+}
+
+.error_message{
+     color: #ff0000;
+     font-size: 11px;
 }

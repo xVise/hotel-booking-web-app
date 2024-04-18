@@ -1,0 +1,208 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+.header {
+    background-color: #7D0DC3;
+    padding: 10px;
+    height: 100px;
+    width: 100%;
+    z-index: 100;
+    display: block;
+}
+
+.nav {
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.nav,
+.nav_item {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav_logo {
+    font-size: 25px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.main {
+    position: relative; /* Додали позиціонування для відносини елементів в main */
+    display: flex;
+    /* justify-content: center; */
+    height: calc(80vh - 100px); /* висота екрану мінус висота header */
+    margin-top: 20px;
+    border-radius: 87px;
+    width: auto;
+    min-width: 500px;
+    margin-left: 20%;
+    margin-right: 20%;
+    background: linear-gradient(180.00deg, rgba(1, 0, 2, 0.08),rgba(1, 0, 1, 0.01) 100%);
+}
+
+.photo {
+    width: 30vw; /* 20% of the viewport width */
+    height: 30vw; /* 20% of the viewport width */
+    min-width: 250px;
+    min-height: 250px;
+    max-width: 350px; /* Maximum width of 250px */
+    max-height: 350px; /* Maximum height of 250px */
+    background: rgb(217, 217, 217);
+    border-radius: 50%;
+    margin-top: 10%; /* 5% margin from the top */
+    margin-left: 10%; /* 12% margin from the left */
+}
+
+.log_out {
+    position: absolute; /* Making the positioning absolute */
+    margin-right: 50px;
+    top: 2vh; /* 2% of the viewport height from the top */
+    right: 2vw; /* 2% of the viewport width from the right */
+    width: 10vw; /* 10% of the viewport width */
+    height: 4vh; /* 4% of the viewport height */
+    max-width: 100px; /* Maximum width of 100px */
+    max-height: 40px; /* Maximum height of 40px */
+    background: rgb(217, 217, 217);
+    border-radius: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.Log {
+    justify-content: center;
+    align-items: center; /* Додано */
+}
+.info{
+    display: flex;
+    flex-direction: column;
+    /* margin-left: 40%; */
+    margin-inline-start: auto;
+    margin-block-end: auto;
+    margin-top: 10%;
+    margin-right: 15%;
+    width: 300px;
+
+}
+.first_name_input{
+    width: 600px;
+    height: 72px;
+}
+.edit_profile{
+    position: absolute; /* Making the positioning absolute */
+    margin-right: 200px;
+    top: 2vh; /* 2% of the viewport height from the top */
+    right: 2vw; /* 2% of the viewport width from the right */
+    width: 10vw; /* 10% of the viewport width */
+    height: 4vh; /* 4% of the viewport height */
+    max-width: 120px; /* Maximum width of 100px */
+    max-height: 40px; /* Maximum height of 40px */
+    background: rgb(217, 217, 217);
+    border-radius: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+input[type="text"] {
+    border: none;
+    border-bottom: 1px solid #ccc; /* підкреслення поля вводу */
+    outline: none;
+    margin-bottom: 20px;
+    padding: 5px;
+    width: 100%;
+}
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+select{
+    margin-bottom: 20px;
+}
+.error-message{
+    color: #ff0000;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.Choose_photo {
+    margin-left: 190px;
+}
+.file_input {
+    margin-top: 20px;
+    display: inline-block;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-left: 100px;
+    text-align: center; /* Відцентрувати текст в середині розділу */
+}
+.button_input{
+    margin-top: 10px;
+}
+.file_input input[type="file"]::-webkit-file-upload-button {
+    display: none;
+  }
+  
+  .file_input input[type="file"] {
+    border: 1px solid #ccc;
+    padding: 5px;
+    width: 200px;
+  }
+  
+  .file_input input[type="file"]:focus {
+    border-color: #000;
+  }
+  
+  .file_input .button_input {
+    margin-top: 10px;
+  }
+  .photo_text{
+    margin-left: 170px;
+  }
+  
+  .file-button {
+    margin-top: 10px;
+    margin-left: 200px;
+  }
+
+  .close-button {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    }
+
+  /* Стилі для віджета */
+  .widget-container {
+        font-size: 15px;
+        text-align: center;
+        display: none;
+        position: fixed;
+        top: 43%;
+        left: 34%;
+        transform: translate(-50%, -50%);
+        width: 400px;
+        height: 500px;
+        background-color: #fff;
+        border: 2px solid #ccc;
+        border-radius: 10px;
+        z-index: 9999; /* Забезпечити, щоб віджет був над іншим вмістом */
+    }

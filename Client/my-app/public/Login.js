@@ -7,7 +7,7 @@ async function Get_Login_Data() {
     }).then(function (response){
 
         localStorage.setItem("token",response.data.token);
-        window.location.href = 'user_info.html?token='+response.data.token;
+        window.location.href = 'index.html?token='+response.data.token;
     })
         .catch(function (error){
         if(error.response){

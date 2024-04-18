@@ -14,6 +14,10 @@
 <header class="header">
     <nav class="nav">
         <a href="#" class="nav_logo">ComfortCountry</a>
+        <!-- <a href="userprofile.html" class="profile_icon">
+            <i class="uil uil-user-circle"></i>
+        </a> -->
+
 
         <button class="button" id="form-open">Log in</button>
     </nav>
@@ -75,9 +79,13 @@
                     <i class="uil uil-user"></i>
                 </div>
                 <div class="input_box">
-                    <label for="sex">
-                        <input type="text" id="sex" placeholder="Sex" required />
-                    </label>
+                    <label for="sex">  </label>
+                    <select id="male" name="gender">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                        <option value="Not_specified">Not Specified</option>
+                      </select>
                     <i class="uil uil-user"></i>
                 </div>
                 <div class="input_box">
@@ -91,11 +99,12 @@
                         <input type="tel" id="phone" placeholder="Phone Number" required />
                     </label>
                     <i class="uil uil-phone"></i>
+                    <div class="error_message" id="error_phone"></div>
                 </div>
                 <div class="input_box">
-                    <label for="country">
-                        <input type="text" id="country" placeholder="Country" required />
-                    </label>
+                    <label for="country"></label>
+                        <select id="country" name="country">
+                        </select>
                     <i class="uil uil-globe"></i>
                 </div>
                 <div class="input_box">
@@ -103,6 +112,7 @@
                         <input type="email" id="signup_email" placeholder="Enter your email" required />
                     </label>
                     <i class="uil uil-envelope-alt email"></i>
+                    <div class="error_message" id="error_signup_email"></div>
                 </div>
                 <div class="input_box">
                     <label for="signup_password">
@@ -110,6 +120,7 @@
                     </label>
                     <i class="uil uil-lock password"></i>
                     <i class="uil uil-eye-slash pw_hide"></i>
+                    <div class="error_message" id="error_signup_password"></div>
                 </div>
                 <div class="input_box">
                     <label for="confirm_password">
@@ -117,6 +128,7 @@
                     </label>
                     <i class="uil uil-lock password"></i>
                     <i class="uil uil-eye-slash pw_hide"></i>
+                    <div class="error_message" id="error_confirm_password"></div>
                 </div>
 
                 <button type="button" class="button" onclick="registerUser()">Sign up Now</button>
@@ -126,7 +138,23 @@
         </div>
     </div>
 </section>
+<script>
 
+fetch('https://raw.githubusercontent.com/samayo/country-json/master/src/country-by-abbreviation.json')
+  .then(response => response.json())
+  .then(data => {
+    const select = document.getElementById('country');
+    // Додаємо кожну країну до списку
+    data.forEach(country => {
+      const option = document.createElement('option');
+      option.text = country.country; // Назва країни
+      select.appendChild(option);
+    });
+  })
+  .catch(error => {
+    console.error('Error fetching country list:', error);
+  });
+</script>
 <script src="script.js"></script>
 <script src="Login.js"></script>
 <script src="Registration.js"></script>
