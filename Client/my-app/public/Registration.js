@@ -1,7 +1,9 @@
 async function registerUser() {
     try {
         const userData = await getRegisterData();
+
         console.log(userData);
+
         if (userData.Error === 1) {
             const message = "Passwords do not match.";
             console.log(message);
@@ -36,9 +38,15 @@ async function registerUser() {
             email: userData.email,
             password: userData.password
         }).then(function (response){
+
             localStorage.setItem("token", response.data.token);
             window.location.href = 'Reg_sendCode.html?token=' + response.data.token;
         });
+
+            localStorage.setItem("token",response.data.token);
+            window.location.href = 'Reg_sendCode.html?token='+response.data.token;
+        })
+
 
     } catch (error) {
         console.error("Error registering user:", error.message);
