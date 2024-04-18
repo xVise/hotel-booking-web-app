@@ -364,6 +364,8 @@ const file = fileInput.files[0];
         });
         console.log("File uploaded successfully");
         console.log("Response:", response.data);
+        alert("Файл вигружено успішно!");
+        location.reload(); // Оновлення сторінки
     } catch (error) {
         console.error("An error occurred while uploading the file:", error);
     }
