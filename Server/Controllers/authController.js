@@ -219,6 +219,7 @@ class  AuthController{
     async login(req,res){
         try {
             const {EMail,Password}=req.body
+         
 
             const user=await User.findOne({EMail})
             console.log(user)
