@@ -1,4 +1,10 @@
 async function Get_Login_Data() {
+    var response = grecaptcha.getResponse();
+    if (response.length === 0) {
+        // reCAPTCHA is not completed
+        alert("Please complete the reCAPTCHA.");
+        return; // Stop further execution
+    }
     var Log_Email = document.getElementById("login_email").value;
     var Log_Password = document.getElementById("login_password").value;
     await axios.post('api/user/login', {
