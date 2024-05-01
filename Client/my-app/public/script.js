@@ -94,3 +94,41 @@ document.addEventListener('DOMContentLoaded', function() {
         document.head.appendChild(style);
     }
 });
+
+$('input[name="dates"]').daterangepicker();
+
+const rightArrow = document.querySelector(".scrollable-tabs-container .right-arrow svg");
+const tabsList = document.querySelector(".scrollable-tabs-container ul");
+const leftArrow = document.querySelector(".scrollable-tabs-container .left-arrow svg");
+const leftArrowContainer = document.querySelector(".scrollable-tabs-container .left-arrow ");
+const rightArrowContainer = document.querySelector(".scrollable-tabs-container .right-arrow ");
+
+const manageIcons = () => {
+    if (tabsList.scrollLeft >= 20){
+        leftArrowContainer.classList.add("active");
+    }else{
+        leftArrowContainer.classList.remove("active");
+    }
+    let maxScrollValue = tabsList.scrollWidth - tabsList.clientWidth - 20;
+    console.log("scroll width: ", tabsList.scrollWidth);
+    console.log("client width: ", tabsList.clientWidth);
+
+    if (tabsList.scrollLeft >= maxScrollValue) {
+        rightArrowContainer.classList.remove("active");
+    }else{
+        rightArrowContainer.classList.add("active");
+    }
+}
+
+rightArrow.addEventListener("click", () =>{
+    tabsList.scrollLeft += 400;
+    manageIcons();
+} );
+
+tabsList.addEventListener("scroll", manageIcons);
+
+leftArrow.addEventListener("click", () =>{
+
+    tabsList.scrollLeft -= 400;
+} );
+

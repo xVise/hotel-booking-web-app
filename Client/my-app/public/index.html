@@ -8,6 +8,13 @@
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 </head>
 <body>
 <!-- Header -->
@@ -23,6 +30,102 @@
     </nav>
 
 </header>
+
+
+<div class="search_box">
+    <div class="search_section">
+        <select id="town_select">
+            <option value="" disabled selected hidden>Choose the town</option>
+        </select>
+    </div>
+    <div class="divider"></div>
+    <div class="search_section">
+        <label> Check in - Check out</label>
+        <input type="text" name="dates" />
+    </div>
+    <div class="divider"></div>
+    <div class="search_section">
+        <span>Guests:</span>
+        <select id="guests_select">
+            <option value="1">1 guest</option>
+            <option value="2">2 guests</option>
+            <option value="3">3 guests</option>
+            <!-- Додайте інші варіанти для кількості гостей -->
+        </select>
+    </div>
+    
+    <div class="search_section">
+        <span>Rooms:</span>
+        <select id="rooms_select">
+            <option value="1">1 room</option>
+            <option value="2">2 rooms</option>
+            <option value="3">3 rooms</option>
+            <!-- Додайте інші варіанти для кількості кімнат -->
+        </select>
+    </div>    
+    <div class="divider"></div>
+    <div class="search_section">
+        <button class="search_button"> Search</span> </button>
+    </div>
+</div>
+
+<div class="scrollable-tabs-container">
+    <div class="left-arrow">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+          </svg>    
+    </div>
+    <ul>
+        <li>
+            <a href="#" class="active">Показати всі варіанти!</a>
+        </li>
+        <li>
+            <a href="#">Бахмут</a>
+        </li>
+        <li>
+            <a href="#">Вишневе</a>
+        </li>
+        <li>
+            <a href="#">Харків</a>
+        </li>
+        <li>
+            <a href="#">Тарасівка</a>
+        </li>
+        <li>
+            <a href="#">Житомир</a>
+        </li>
+        <li>
+            <a href="#">Бахмут</a>
+        </li>
+        <li>
+            <a href="#">Вишневе</a>
+        </li>
+        <li>
+            <a href="#">Харків</a>
+        </li>
+        <li>
+            <a href="#">Тарасівка</a>
+        </li>
+        <li>
+            <a href="#">Житомир</a>
+        </li>
+    </ul>
+    <div class="right-arrow active">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+          </svg>          
+    </div>
+</div>
+
+<!--<div class="gallery-wrap">
+    
+</div>-->
+
+<div class="footer">
+    <div class="footer-content">
+
+    </div>
+</div>
 
 <!-- Home -->
 <section class="home">
@@ -138,6 +241,17 @@
         </div>
     </div>
 </section>
+
+<script>
+    $(function() {
+      $('input[name="daterange"]').daterangepicker({
+        opens: 'left'
+      }, function(start, end, label) {
+        console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+      });
+    });
+</script>
+
 <script>
 
 fetch('https://raw.githubusercontent.com/samayo/country-json/master/src/country-by-abbreviation.json')
