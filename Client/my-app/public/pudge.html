@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма для заповнення бази даних готелів</title>
+    <style>
+        /* Простий CSS для оформлення форми (можна змінювати за потребою) */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        input[type="text"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <form action="addhotel.js" method="post" enctype="multipart/form-data">
+        <h2>Додати новий готель</h2>
+        <label for="hotel_name">Назва готелю:</label>
+        <input type="text" id="hotel_name" name="hotel_name" required>
+
+        <label for="description">Опис:</label>
+        <textarea id="description" name="description" rows="4" required></textarea>
+
+        <label for="photo">Фото:</label>
+        <input type="file" id="photo" name="photo" accept="image/*" required>
+
+        <label for="stars">Зірки (1-5):</label>
+        <select id="stars" name="stars" required>
+            <option value="1">1 зірка</option>
+            <option value="2">2 зірки</option>
+            <option value="3">3 зірки</option>
+            <option value="4">4 зірки</option>
+            <option value="5">5 зірок</option>
+        </select>
+
+        <label for="region">Область:</label>
+        <select id="region" name="region" required>
+            <option value="Вінницька">Вінницька</option>
+            <option value="Волинська">Волинська</option>
+            <option value="Дніпропетровська">Дніпропетровська</option>
+            <option value="Донецька">Донецька</option>
+            <option value="Житомирська">Житомирська</option>
+            <option value="Закарпатська">Закарпатська</option>
+            <option value="Запорізька">Запорізька</option>
+            <option value="Івано-Франківська">Івано-Франківська</option>
+            <option value="Київська">Київська</option>
+            <option value="Кіровоградська">Кіровоградська</option>
+            <option value="Луганська">Луганська</option>
+            <option value="Львівська">Львівська</option>
+            <option value="Миколаївська">Миколаївська</option>
+            <option value="Одеська">Одеська</option>
+            <option value="Полтавська">Полтавська</option>
+            <option value="Рівненська">Рівненська</option>
+            <option value="Сумська">Сумська</option>
+            <option value="Тернопільська">Тернопільська</option>
+            <option value="Харківська">Харківська</option>
+            <option value="Херсонська">Херсонська</option>
+            <option value="Хмельницька">Хмельницька</option>
+            <option value="Черкаська">Черкаська</option>
+            <option value="Чернівецька">Чернівецька</option>
+            <option value="Чернігівська">Чернігівська</option>
+            <option value="м. Київ">м. Київ</option>
+            <option value="м. Севастополь">м. Севастополь</option>
+        </select>
+
+        <label for="address">Адреса:</label>
+        <input type="text" id="address" name="address" required>
+
+        <label for="accommodation_type">Тип помешкання:</label>
+        <select id="accommodation_type" name="accommodation_type" required>
+            <option value="готель">Готель</option>
+            <option value="гостьовий будинок">Гостьовий будинок</option>
+            <option value="апартаменти">Апартаменти</option>
+            <!-- Додайте інші типи помешкань за потребою -->
+        </select>
+
+        <label for="room_count">Кількість кімнат:</label>
+        <input type="number" id="room_count" name="room_count" min="1" required>
+
+        <input type="submit" value="Додати готель">
+    </form>
+</body>
+</html>
