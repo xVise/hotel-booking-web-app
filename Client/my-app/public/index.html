@@ -26,12 +26,13 @@
 <!-- Header -->
 <header class="header">
     <nav class="nav">
-        <a href="#" class="nav_logo">ComfortCountry</a>
+        <a href="#" class="nav_logo">
+            <span style="color: #FFD700">Comfort</span>
+            <span style="color: #807DFE">Country</span>
+        </a>
         <!-- <a href="userprofile.html" class="profile_icon">
             <i class="uil uil-user-circle"></i>
         </a> -->
-
-
         <button class="button" id="form-open">Log in</button>
     </nav>
 
@@ -81,39 +82,10 @@
             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
           </svg>    
     </div>
-    <ul>
+    <ul class="cities">
         <li>
-            <a href="#" class="active">Показати всі варіанти!</a>
-        </li>
-        <li>
-            <a href="#">Бахмут</a>
-        </li>
-        <li>
-            <a href="#">Вишневе</a>
-        </li>
-        <li>
-            <a href="#">Харків</a>
-        </li>
-        <li>
-            <a href="#">Тарасівка</a>
-        </li>
-        <li>
-            <a href="#">Житомир</a>
-        </li>
-        <li>
-            <a href="#">Бахмут</a>
-        </li>
-        <li>
-            <a href="#">Вишневе</a>
-        </li>
-        <li>
-            <a href="#">Харків</a>
-        </li>
-        <li>
-            <a href="#">Тарасівка</a>
-        </li>
-        <li>
-            <a href="#">Житомир</a>
+            <img class="region-photo" src="ai.jpg" alt="Фото">
+             <a href="filter-page.html">Київська область</a>
         </li>
     </ul>
     <div class="right-arrow active">
@@ -122,6 +94,55 @@
           </svg>          
     </div>
 </div>
+
+<script>
+// Створюємо масив областей (для прикладу)
+var regions = [
+    { name: "Київська область", image: "ai.jpg" },
+    { name: "Київська область", image: "ai.jpg" },
+    { name: "Київська область", image: "ai.jpg" },
+    { name: "Київська область", image: "ai.jpg" },
+    { name: "Київська область", image: "ai.jpg" },
+    // Додайте інші області за потребою
+];
+
+// Функція для створення елементів областей
+function createRegionElements(region) {
+    // Створюємо <li> елемент
+    var liElement = document.createElement('li');
+
+    // Створюємо <img> елемент
+    var imgElement = document.createElement('img');
+    imgElement.classList.add('region-photo');
+    imgElement.src = region.image;
+    imgElement.alt = "Фото";
+
+    // Створюємо <a> елемент
+    var aElement = document.createElement('a');
+    aElement.textContent = region.name;
+    aElement.href = "filter-page.html"; // Посилання на іншу сторінку
+
+    // Додаємо <img> і <a> елементи в <li> елемент
+    liElement.appendChild(imgElement);
+    liElement.appendChild(aElement);
+
+    // Додаємо <li> елемент в <ul> з класом "cities"
+    var ulElement = document.querySelector('.cities');
+    ulElement.appendChild(liElement);
+}
+
+// Функція для відображення областей на сторінці
+function displayRegions() {
+    // Ітеруємося по масиву областей та створюємо елементи для кожної області
+    regions.forEach(function(region) {
+        createRegionElements(region);
+    });
+}
+
+// Викликаємо функцію для відображення областей при завантаженні сторінки
+document.addEventListener('DOMContentLoaded', displayRegions);
+
+</script>
 
 <!--<div class="gallery-wrap">
     

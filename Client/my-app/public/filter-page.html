@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Filters Page</title>
+    <link rel="stylesheet" href="filter-style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+</head>
+<body class="main">
+        
+    <header class="header">
+        <nav class="nav">
+            <a href="index.html" class="nav_logo">    
+                <span style="color: #FFD700">Comfort</span>
+                <span style="color: #807DFE">Country</span>
+            </a>
+            <!-- <a href="userprofile.html" class="profile_icon">
+                <i class="uil uil-user-circle"></i>
+            </a> -->
+            <button class="button" id="form-open">Log in</button>
+        </nav>
+    
+    </header>
+
+    <div class="search_box">
+        <div class="search_section">
+            <select id="town_select">
+                <option value="" disabled selected hidden>Choose the town</option>
+            </select>
+        </div>
+        <div class="divider"></div>
+        <div class="search_section">
+            <label> Check in - Check out</label>
+            <input type="text" name="dates" />
+        </div>
+        <div class="divider"></div>
+        <div class="search_section">
+            <span>Guests:</span>
+            <select id="guests_select">
+                <option value="1">1 guest</option>
+                <option value="2">2 guests</option>
+                <option value="3">3 guests</option>
+                <!-- Додайте інші варіанти для кількості гостей -->
+            </select>
+        </div>
+        
+        <div class="search_section">
+            <span>Rooms:</span>
+            <select id="rooms_select">
+                <option value="1">1 room</option>
+                <option value="2">2 rooms</option>
+                <option value="3">3 rooms</option>
+                <!-- Додайте інші варіанти для кількості кімнат -->
+            </select>
+        </div>    
+        <div class="divider"></div>
+        <div class="search_section">
+            <button class="search_button"> Search</span> </button>
+        </div>
+    </div>
+    
+    <div class="add-banner">
+        <div class="add-banner-cont">
+            <a>Найпопулярніші курортні міста:</a>
+        </div>
+        <div class="add-banner-cont">
+            <a>Найпопулярніші курортні міста:</a>
+        </div>
+        <div class="add-banner-cont">
+            <a>Тут може бути ваша реклама:</a>
+        </div>
+    </div>
+
+    <div class="all-hotels">
+        <div class="hotel-menu">
+            <div class="photo-container">
+                <img class="hotel-photo" src="Київська обл.jpg">
+            </div>
+            <div class="name-hotel">
+                <div class="name-hotel-cont">
+                    <a>Готель Skylinesfds fsdівфівфів</a>
+                </div>
+                <div class="description">
+                    <a style="font-size: small;">Treasured for its surrounding beaches, azure blue water and a picturesque yacht paradise, The Pier Hotel is a little slice of paradise in “the back garden of Hong Kong”, Sai Kung. Escape to a private haven at The Pier Hotel where the pace of life is slow and the scenery is simply breathtaking.</a>
+                </div>
+            </div>
+            <div class="star-pick">
+                <a>Stars:</a>
+                <div class="star-pick-mark">5</div>
+                <button onclick="window.location.href = 'hotel-description.html';">Перейти</button>
+            </div>
+        </div>
+        <div class="hotel-menu">
+            <div class="photo-container">
+                <img class="hotel-photo" src="Київська обл.jpg">
+            </div>
+            <div class="name-hotel">
+                <div class="name-hotel-cont">
+                    <a>Готель Skylinesfds fsdівфівфів</a>
+                </div>
+                <div class="description">
+                    <a style="font-size: small;">Treasured for its surrounding beaches, azure blue water and a picturesque yacht paradise, The Pier Hotel is a little slice of paradise in “the back garden of Hong Kong”, Sai Kung. Escape to a private haven at The Pier Hotel where the pace of life is slow and the scenery is simply breathtaking.</a>
+                </div>
+            </div>
+            <div class="star-pick">
+                <a>Stars:</a>
+                <div class="star-pick-mark">5</div>
+                <button onclick="window.location.href = 'hotel-description.html';">Перейти</button>
+            </div>
+        </div>
+        <div class="hotel-menu">
+            <div class="photo-container">
+                <img class="hotel-photo" src="Київська обл.jpg">
+            </div>
+            <div class="name-hotel">
+                <div class="name-hotel-cont">
+                    <a>Готель Skylinesfds fsdівфівфів</a>
+                </div>
+                <div class="description">
+                    <a style="font-size: small;">Treasured for its surrounding beaches, azure blue water and a picturesque yacht paradise, The Pier Hotel is a little slice of paradise in “the back garden of Hong Kong”, Sai Kung. Escape to a private haven at The Pier Hotel where the pace of life is slow and the scenery is simply breathtaking.</a>
+                </div>
+            </div>
+            <div class="star-pick">
+                <a>Stars:</a>
+                <div class="star-pick-mark">5</div>
+                <button onclick="window.location.href = 'hotel-description.html';">Перейти</button>
+            </div>
+        </div>
+    </div>
+    <div class="filters">
+        <h2 style="color: #FFD700; margin-top: 5px;">Filters:</h1>
+        
+        <h4 style=" margin-top: 5px; color: white;">Region:</4>
+            <select class="filters-container" id="regions" name="regions" multiple>
+                <option value="Вінницька область">Вінницька область</option>
+                <option value="Волинська область">Волинська область</option>
+                <option value="Дніпропетровська область">Дніпропетровська область</option>
+                <option value="Донецька область">Донецька область</option>
+                <option value="Житомирська область">Житомирська область</option>
+                <option value="Закарпатська область">Закарпатська область</option>
+                <option value="Запорізька область">Запорізька область</option>
+                <option value="Івано-Франківська область">Івано-Франківська область</option>
+                <option value="Київська область">Київська область</option>
+                <option value="Кіровоградська область">Кіровоградська область</option>
+                <option value="Луганська область">Луганська область</option>
+                <option value="Львівська область">Львівська область</option>
+                <option value="Миколаївська область">Миколаївська область</option>
+                <option value="Одеська область">Одеська область</option>
+                <option value="Полтавська область">Полтавська область</option>
+                <option value="Рівненська область">Рівненська область</option>
+                <option value="Сумська область">Сумська область</option>
+                <option value="Тернопільська область">Тернопільська область</option>
+                <option value="Харківська область">Харківська область</option>
+                <option value="Херсонська область">Херсонська область</option>
+                <option value="Хмельницька область">Хмельницька область</option>
+                <option value="Черкаська область">Черкаська область</option>
+                <option value="Чернівецька область">Чернівецька область</option>
+                <option value="Чернігівська область">Чернігівська область</option>
+                <option value="місто Київ">місто Київ</option>
+                <option value="місто Севастополь">місто Севастополь</option>
+                <option value="АР Крим">Автономна Республіка Крим</option>
+            </select>
+        <h4 style=" margin-top: 5px; color: white;">Town:</4>
+            <select class="filters-container" id="cities" name="cities" multiple>
+            </select>
+        <h4 style=" margin-top: 5px; color: white;">Type of accommodation:</4>
+        <div class="filters-container">
+
+        </div>
+        
+        <h4 style=" margin-top: 5px; color: white;">Stars:</4>
+        <div style="margin: 10px auto;">
+            <input name="example3" type="range" max="5" min="1" value="10" step="1">
+            <select source="[name=example3]">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+        </div>
+
+        <button class="filter-accept">Accept</button>
+
+    </div>
+
+    <script>
+        $(function() {
+          $('input[name="daterange"]').daterangepicker({
+            opens: 'left'
+          }, function(start, end, label) {
+            console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+          });
+        });
+    </script>
+    
+    <script src="filter-script.js"></script>
+</body>
+</html>
