@@ -1,0 +1,306 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+.main{
+    height: auto;
+    background-color: #f6f1fc;
+}
+
+a {
+    text-decoration: none;
+}
+
+.header {
+    background-color: #7D0DC3;
+    padding: 10px;
+    position: fixed;
+    height: 120px;
+    width: 100%;
+}
+
+.nav {
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+}
+.nav,
+.nav_item {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav_logo {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.button {
+    padding: 6px 24px;
+    border: 1px solid #fff;
+    background: white;
+    color: #7d2ae8;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bolder;
+}
+.male{
+    margin-left: 20px;
+}
+.button:active {
+    transform: scale(0.98);
+}
+
+.search_box {
+    width: 1000px;
+    height: 80px;
+    position: fixed; /* змінено з absolute на fixed */
+    top: 110px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 15px;
+    border: 4px solid gold;
+    background-color: #ffffff;
+    display: flex; /* додаємо flex для розміщення елементів у ряд */
+    justify-content: space-between; /* рівномірний розподіл між елементами */
+    align-items: center; /* центрування елементів по вертикалі */
+    z-index: 1;
+}
+
+.search_section {
+    flex: 1; /* рівномірний розподіл простору між .search_section елементами */
+    text-align: center;
+}
+
+.divider {
+    width: 1px;
+    height: 80%; /* зменшено висоту перегородок для кращого вигляду */
+    background-color: #ccc;
+}
+
+.search_button {
+    border: 2px solid black; /* Збільшуємо товщину межі */
+    margin-top: 7px;
+    border-radius: 8px; /* Збільшуємо радіус кутів */
+    background-color: #7d2ae8;
+    color: #ffffff;
+    padding: 5px 10px; /* Збільшуємо відступи внутрішнього вмісту */
+    font-size: 16px; /* Збільшуємо розмір шрифту */
+    cursor: pointer; /* Змінюємо форму курсора на палець */
+    transition: background-color 0.3s, color 0.3s; /* Додаємо плавність зміни кольорів */
+}
+
+/* При наведенні */
+.search_button:hover {
+    background-color: #a55efa; /* Збільшуємо яскравість при наведенні */
+    color: #ffffff; /* Збільшуємо контраст тексту */
+}
+
+/* При натисканні */
+.search_button:active {
+    background-color: #5a1b7f; /* Затемнюємо колір при натисканні */
+}
+
+#town_select {
+    width: 170px; 
+    padding: 10px;
+    margin-top: 7px; 
+    border: 1px solid #000000;
+    border-radius: 10px;
+    font-weight:500; 
+    font-size:14px;
+}
+
+.search_section {
+    margin-bottom: 10px; /* Додаємо відступ між елементами */
+}
+
+.search_section span {
+    margin-right: 10px; /* Додаємо відступ між текстом і випадаючим списком */
+}
+
+.search_section select {
+    width: 150px; /* Задаємо ширину випадаючого списку */
+    padding: 5px; /* Додаємо внутрішній відступ */
+    border-radius: 5px; /* Закруглюємо кути */
+    border: 1px solid #ccc; /* Додаємо рамку */
+}
+
+.add-banner{
+    height: auto;
+    width: 250px;
+    top: 220px;
+    border: 3px solid gold;
+    border-radius: 15px;
+    position:fixed;
+    display: block;
+    left: 3%;
+    overflow: hidden;
+}
+
+.add-banner-cont{
+    margin-top: 15px;
+    text-align: center;
+    max-width: 250px;
+    width: 250px;
+    height:210px ;
+    background: white;
+    border-radius: 15px;
+}
+
+.all-hotels{
+    position: absolute;
+    top: 230px;
+    display: block;
+    left: 25%;
+    height: auto;
+    margin-top: 10px;
+}
+
+.hotel-menu{
+    position: relative;
+    height: 250px;
+    width: 950px;
+    border: 3px solid gold;
+    border-radius: 15px;
+    display: flex; /* додаємо flex для розміщення елементів у ряд */
+    margin-bottom: 25px;
+    background: white;
+}
+
+.name-hotel{
+    height: 30px;
+    max-width: 440px;
+    margin: 20px 0;
+}
+
+.name-hotel-cont{
+    font-size: 20px;
+    max-height: 30px;
+    overflow: auto;
+}
+
+.description{
+    height: 140px;
+    width: 650px;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-top: 25px;
+    overflow: auto; /* додано прокрутку */
+    padding: 5px;
+}
+
+.photo-container{
+    height: 250px;
+    width: 250px;
+}
+
+.hotel-photo{
+    height: 200px;
+    width: 200px;
+    margin: 25px;
+    border-radius: 15px;
+}
+
+.star-pick{
+    width: 220px;
+    height: 60px;
+    border-radius: 5px;
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 15px;
+}
+
+.star-pick a{
+    margin: 17px 0;
+}
+.star-pick button{
+    height: 40px;
+    border: 2px solid black; /* Збільшуємо товщину межі */
+    margin-top: 7px;
+    border-radius: 8px; /* Збільшуємо радіус кутів */
+    background-color: #7d2ae8;
+    color: #ffffff;
+    padding: 5px 10px; /* Збільшуємо відступи внутрішнього вмісту */
+    font-size: 16px; /* Збільшуємо розмір шрифту */
+    cursor: pointer; /* Змінюємо форму курсора на палець */
+    transition: background-color 0.3s, color 0.3s; /* Додаємо плавність зміни кольорів */
+}
+
+/* При наведенні */
+.star-pick button:hover {
+    background-color: #a55efa; /* Збільшуємо яскравість при наведенні */
+    color: #ffffff; /* Збільшуємо контраст тексту */
+}
+
+/* При натисканні */
+.star-pick button:active {
+    background-color: #5a1b7f; /* Затемнюємо колір при натисканні */
+}
+
+.star-pick-mark{
+    border: 1px solid; 
+    border-radius: 10px; 
+    height: 30px; 
+    width: 30px; 
+    margin: 15px 0;
+    text-align: center;
+    padding: 2px 0;
+}
+
+.filters{
+    position: fixed;
+    display: block;
+    right: 3%;
+    background: #7D0DC3;
+    height: auto;
+    top: 220px;
+    width: 250px;
+    border: 2px solid black;
+    border-radius: 20px;
+    text-align: center;
+}
+
+h4{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.filters-container{
+    background: #fff;
+    height: 130px;
+    width: 200px;
+    margin: 10px auto;
+    border-radius: 20px;
+    border: 1px solid black;
+    padding-top: 10px;
+    padding-left: 5px;
+}
+
+.filter-accept{
+    height: 40px;
+    border: 2px solid black; /* Збільшуємо товщину межі */
+    margin: 10px auto;
+    border-radius: 8px; /* Збільшуємо радіус кутів */
+    background-color: #ffffff;
+    color: #000000;
+    padding: 5px 10px; /* Збільшуємо відступи внутрішнього вмісту */
+    font-size: 16px; /* Збільшуємо розмір шрифту */
+    cursor: pointer; /* Змінюємо форму курсора на палець */
+    transition: background-color 0.3s, color 0.3s; /* Додаємо плавність зміни кольорів */
+}
+
+.filter-accept:hover{
+    background-color: #a55efa; /* Збільшуємо яскравість при наведенні */
+    color: #ffffff; /* Збільшуємо контраст тексту */
+}
+
+.filter-accept:active{
+    background-color: #5a1b7f; /* Затемнюємо колір при натисканні */
+}

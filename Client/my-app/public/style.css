@@ -9,6 +9,7 @@
 a {
     text-decoration: none;
 }
+
 .header {
     background-color: #7D0DC3;
     padding: 10px;
@@ -16,8 +17,8 @@ a {
     height: 120px;
     width: 100%;
     z-index: 100;
-
 }
+
 .nav {
     max-width: 1100px;
     width: 100%;
@@ -289,7 +290,7 @@ a {
     width: 170px; 
     padding: 10px;
     margin-top: 7px; 
-    border: 2px solid #000000;
+    border: 1px solid #000000;
     border-radius: 10px;
     font-weight:500; 
     font-size:14px;
@@ -329,7 +330,7 @@ a {
     font-size: medium;
     z-index: 1;
     background: #7D0DC3;
-    max-width: 1000px;
+    max-width: 1300px;
     position: fixed;
     top: 300px;
     left: 50%;
@@ -361,6 +362,17 @@ a {
 
 .scrollable-tabs-container ul::-webkit-scrollbar{
     display: none;
+}
+
+.scrollable-tabs-container li{
+    text-align: center;
+}
+
+.scrollable-tabs-container li img{
+    user-select: none; /* Забороняє виділення зображення */
+    -webkit-user-select: none; /* Для підтримки веб-кіт браузерів */
+    -moz-user-select: none; /* Для підтримки Firefox */
+    -ms-user-select: none; /* Для підтримки Internet Explorer/Edge */
 }
 
 .scrollable-tabs-container a{
@@ -422,4 +434,10 @@ a {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+}
+
+.region-photo{
+    width: 400px;
+    height: 300px;
+    text-align: center;
 }
