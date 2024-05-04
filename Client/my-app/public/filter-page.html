@@ -14,12 +14,13 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    
 </head>
 <body class="main">
         
     <header class="header">
         <nav class="nav">
-            <a href="index.html" class="nav_logo">    
+            <a id="navigation" href="index.html" class="nav_logo">    
                 <span style="color: #FFD700">Comfort</span>
                 <span style="color: #807DFE">Country</span>
             </a>
@@ -201,6 +202,46 @@
             console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
           });
         });
+        document.addEventListener("DOMContentLoaded", function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const token = urlParams.get('token');
+            console.log(urlParams)
+            if (token) {
+                document.getElementById('navigation').href += '?token=' + token;
+            }
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+    // Отримуємо URL
+    var urlParams = new URLSearchParams(window.location.search);
+    // Перевіряємо, чи присутній токен
+    const token = urlParams.get('token');
+    console.log(token);
+    if (urlParams.has('token')) {
+        // Видаляємо елемент з id "form-open"
+        var formOpenButton = document.getElementById('form-open');
+        if (formOpenButton) {
+            formOpenButton.remove();
+        }
+        // Додаємо вашу потрібну структуру замість кнопки
+        var nav = document.querySelector('.nav');
+        
+        if (nav) {
+            var profileLink = document.createElement('a');
+            profileLink.href = 'user.html?token='+token;
+            profileLink.classList.add('profile_icon');
+
+            var userIcon = document.createElement('i');
+            userIcon.classList.add('uil', 'uil-user-circle');
+
+            profileLink.appendChild(userIcon);
+            nav.appendChild(profileLink);
+        }
+        // Додаємо CSS правило для приховування елемента з класом .profile_icon
+        var style = document.createElement('style');
+        style.innerHTML = '.profile_icon { display: flex; }';
+        document.head.appendChild(style);
+    }
+});
     </script>
     
     <script src="filter-script.js"></script>

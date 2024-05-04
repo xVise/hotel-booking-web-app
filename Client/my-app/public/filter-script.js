@@ -88,3 +88,4 @@ $('input[name="dates"]').daterangepicker();
               option.value = city;
               select.add(option);
           });
+          

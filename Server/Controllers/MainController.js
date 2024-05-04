@@ -29,7 +29,7 @@ class MainController{
                 },
                
             });
-            console.log(RegionsInf)
+            
             await RegionsInf.save();
         }catch (e) {
             console.log(e)
@@ -38,9 +38,9 @@ class MainController{
     }
     async GetRegion(req,res){
         try {
-            console.log("ok")
+            
             const regions = await Reg.find({}, 'Region_Name Photo _id'); // Вибираємо лише поля Region_Name, Photo та _id
-            console.log(regions)
+            
             // Відправка масиву областей з обраними полями на клієнтську сторону у відповіді
             return res.json({ regions });
         } catch (e) {
