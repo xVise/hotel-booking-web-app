@@ -11,6 +11,10 @@
     background-color: #f6f1fc;
 }
 
+.main::-webkit-scrollbar {
+    display: none; /* приховує полоску прокрутки */
+}
+
 a {
     text-decoration: none;
 }
@@ -21,6 +25,7 @@ a {
     position: fixed;
     height: 120px;
     width: 100%;
+    z-index: 1;
 }
 
 .nav {
@@ -105,6 +110,7 @@ a {
     font-size: 16px; /* Збільшуємо розмір шрифту */
     cursor: pointer; /* Змінюємо форму курсора на палець */
     transition: background-color 0.3s, color 0.3s; /* Додаємо плавність зміни кольорів */
+    z-index: 1;
 }
 
 /* При наведенні */
@@ -288,11 +294,26 @@ h4{
     height: 130px;
     width: 200px;
     margin: 10px auto;
-    border-radius: 20px;
+    border-radius: 10px;
     border: 1px solid black;
     padding-top: 10px;
     padding-left: 5px;
 }
+
+.filters-container::-webkit-scrollbar {
+    width: 12px; /* width of the scrollbar */
+}
+
+.filters-container::-webkit-scrollbar-thumb {
+    background-color: #888; /* color of the scrollbar thumb */
+    border-radius: 20px; /* roundness of the scrollbar thumb */
+}
+
+.filters-container::-webkit-scrollbar-track {
+    background-color: #ddd; /* color of the scrollbar track */
+    border-radius: 20px; /* roundness of the scrollbar track */
+}
+
 
 .filter-accept{
     height: 40px;
