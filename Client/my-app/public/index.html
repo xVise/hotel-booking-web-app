@@ -83,10 +83,10 @@
           </svg>    
     </div>
     <ul class="cities">
-        <li>
+        <!-- <li>
             <img class="region-photo" src="ai.jpg" alt="Фото">
              <a href="filter-page.html">Київська область</a>
-        </li>
+        </li> -->
     </ul>
     <div class="right-arrow active">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -95,54 +95,73 @@
     </div>
 </div>
 
+></script>
 <script>
-// Створюємо масив областей (для прикладу)
-var regions = [
-    { name: "Київська область", image: "ai.jpg" },
-    { name: "Київська область", image: "ai.jpg" },
-    { name: "Київська область", image: "ai.jpg" },
-    { name: "Київська область", image: "ai.jpg" },
-    { name: "Київська область", image: "ai.jpg" },
-    // Додайте інші області за потребою
-];
+// Функція для отримання областей з сервера за допомогою Axios
+async function fetchRegions() {
+    console.log("ok")
+    try {
+        const response = await axios.get('api/main/getRegion'); // Виконуємо GET запит до '/api/main/Regions'
+        const regions = response.data.regions;
 
-// Функція для створення елементів областей
-function createRegionElements(region) {
-    // Створюємо <li> елемент
-    var liElement = document.createElement('li');
-
-    // Створюємо <img> елемент
-    var imgElement = document.createElement('img');
-    imgElement.classList.add('region-photo');
-    imgElement.src = region.image;
-    imgElement.alt = "Фото";
-
-    // Створюємо <a> елемент
-    var aElement = document.createElement('a');
-    aElement.textContent = region.name;
-    aElement.href = "filter-page.html"; // Посилання на іншу сторінку
-
-    // Додаємо <img> і <a> елементи в <li> елемент
-    liElement.appendChild(imgElement);
-    liElement.appendChild(aElement);
-
-    // Додаємо <li> елемент в <ul> з класом "cities"
-    var ulElement = document.querySelector('.cities');
-    ulElement.appendChild(liElement);
+        
+        // Отримуємо назви, фото та _id кожної області
+        const names = regions.map(region => region.Region_Name);
+        const photos = regions.map(region => region.Photo);
+        const ids = regions.map(region => region._id);
+        
+        console.log(names);
+        console.log(photos);
+        console.log(ids);
+        return regions;
+        
+        
+    } catch (error) {
+        console.error('Error fetching regions:', error);
+        return [];
+    }
 }
 
 // Функція для відображення областей на сторінці
-function displayRegions() {
-    // Ітеруємося по масиву областей та створюємо елементи для кожної області
-    regions.forEach(function(region) {
-        createRegionElements(region);
-    });
-}
+async function displayRegions() {
+    try {
+        const regions = await fetchRegions(); // Отримуємо області з сервера
+        const ulElement = document.querySelector('.cities');
+        console.log(regions)
+        regions.forEach(function(region) {
+            // Створюємо <li> елемент для кожної області
+            var liElement = document.createElement('li');
 
+            // Створюємо <img> елемент
+            var imgElement = document.createElement('img');
+            imgElement.classList.add('region-photo');
+            // Отримуємо фото області з отриманих даних
+            const photoData = new Uint8Array(region.Photo.photoData.data);
+            const base64String = btoa(String.fromCharCode.apply(null, photoData));
+            imgElement.src = 'data:image/jpeg;base64,' + base64String;
+            imgElement.alt = "Фото";
+
+            // Створюємо <a> елемент
+            var aElement = document.createElement('a');
+            aElement.textContent = region.Region_Name;
+            aElement.href = "filter-page.html?Rid="+region._id; // Посилання на іншу сторінку
+
+            // Додаємо <img> і <a> елементи в <li> елемент
+            liElement.appendChild(imgElement);
+            liElement.appendChild(aElement);
+
+            // Додаємо <li> елемент в <ul> з класом "cities"
+            ulElement.appendChild(liElement);
+        });
+    } catch (error) {
+        console.error('Error displaying regions:', error);
+    }
+}
 // Викликаємо функцію для відображення областей при завантаженні сторінки
 document.addEventListener('DOMContentLoaded', displayRegions);
 
 </script>
+    
 
 <!--<div class="gallery-wrap">
     
