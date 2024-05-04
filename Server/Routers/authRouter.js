@@ -7,6 +7,7 @@ const {check}=require("express-validator")
 const Files = require('../Module/File');
 const authMiddleware=require("../middleware/authmiddleware")
 router.post("/registration",controller.registration)
+
 router.post("/login",controller.login)
 router.post("/Email_code",controller.GetEmail)
 router.post("/Code",controller.SendCode)

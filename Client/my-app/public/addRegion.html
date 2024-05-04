@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title>Додавання інформації в БД</title>
     <style>
         body {
@@ -48,6 +49,14 @@
         input[type="submit"]:hover {
             background-color: #45a049;
         }
+        #preview {
+            margin-top: 20px;
+        }
+        #preview img {
+            max-width: 300px;
+            max-height: 200px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -57,9 +66,49 @@
         <input type="text" id="region" name="region"><br><br>
 
         <label for="photo">Фото області:</label><br>
-        <input type="file" id="photo" name="photo" accept="image/*"><br><br>
-
-        <input type="submit" value="Додати">
+        <input type="file" id="photo" name="photo" accept="image/*" onchange="previewPhoto(event)"><br><br>
+        
+        <button type="button" class="button" onclick="addRegion()">Log in Now</button>
     </form>
+    <div id="preview"></div>
+    <script>
+
+        function previewPhoto(event) {
+            var input = event.target;
+            var preview = document.getElementById('preview');
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    preview.innerHTML = '<img src="' + e.target.result + '">';
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                preview.innerHTML = '';
+            }
+        }
+        async function addRegion() {
+    var regionName = document.getElementById("region").value;
+    var photoFile = preview.innerHTML;
+
+    var formData = new FormData();
+    formData.append("region", regionName);
+    formData.append("photo", photoFile);
+    
+    base64Photo = photoFile.split(',')[1];
+    console.log(base64Photo);
+    try {
+        const response = await axios.post('api/main/Regions', {
+            Region: regionName,
+            Photo:base64Photo
+        });
+        console.log(response.data);
+    } catch (error) {
+        console.error(error);
+    }
+}
+    </script>
 </body>
 </html>
