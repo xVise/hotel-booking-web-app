@@ -226,34 +226,63 @@
       
         // Зацикліться через кожен готель у масиві готелів
         hotels.data.hotels.forEach(hotel => {
-            console.log(hotel.Photo.data.data)
-    const photoData = new Uint8Array(hotel.Photo.data.data);
-    // Створення об'єкту blob з фото даних
+            const photoData = new Uint8Array(hotel.Photo.data.data);
     const blob = new Blob([photoData], { type: 'image/jpeg' });
-    // Створення посилання URL з blob
     const imageUrl = URL.createObjectURL(blob);
-    // Створіть новий елемент для готеля
-    const hotelElement = document.createElement('div');
-    // Додайте тег <img> для відображення фото
+
+    // Створення елементів для готеля
+    const hotelMenu = document.createElement('div');
+    hotelMenu.classList.add('hotel-menu');
+
+    const photoContainer = document.createElement('div');
+    photoContainer.classList.add('photo-container');
+
     const imgElement = document.createElement('img');
+    imgElement.classList.add('hotel-photo');
     imgElement.src = imageUrl;
     imgElement.alt = hotel.Hotel_Name;
-    hotelElement.appendChild(imgElement);
+    photoContainer.appendChild(imgElement);
 
-    // Додатково додайте інші дані готеля
-    hotelElement.innerHTML += `
-        <h2>${hotel.Hotel_Name}</h2>
-        <p>Description: ${hotel.Description}</p>
-        <p>Stars: ${hotel.Stars}</p>
-        <p>Region: ${hotel.Region}</p>
-        <p>City: ${hotel.City}</p>
-        <p>Location: ${hotel.Location}</p>
-        <p>Hotel type: ${hotel.Hotel_type}</p>
-        <p>Room Amount: ${hotel.Room_Amount}</p>
-    `;
+    const nameHotel = document.createElement('div');
+    nameHotel.classList.add('name-hotel');
 
-    // Додайте елемент готеля до контейнера
-    hotelsContainer.appendChild(hotelElement);
+    const nameHotelCont = document.createElement('div');
+    nameHotelCont.classList.add('name-hotel-cont');
+    const hotelName = document.createElement('a');
+    hotelName.textContent = hotel.Hotel_Name;
+    nameHotelCont.appendChild(hotelName);
+    nameHotel.appendChild(nameHotelCont);
+
+    const description = document.createElement('div');
+    description.classList.add('description');
+    const descText = document.createElement('a');
+    descText.style.fontSize = 'small';
+    descText.textContent = hotel.Description;
+    description.appendChild(descText);
+    nameHotel.appendChild(description);
+
+    const starPick = document.createElement('div');
+    starPick.classList.add('star-pick');
+    const starsLabel = document.createElement('a');
+    starsLabel.textContent = 'Stars:';
+    starPick.appendChild(starsLabel);
+    const starPickMark = document.createElement('div');
+    starPickMark.classList.add('star-pick-mark');
+    starPickMark.textContent = hotel.Stars;
+    starPick.appendChild(starPickMark);
+
+    const button = document.createElement('button');
+    button.textContent = 'Перейти';
+    button.onclick = function() {
+        window.location.href = 'pudge.html';
+    };
+    starPick.appendChild(button);
+
+    // Додавання створених елементів до контейнера готелів
+    hotelMenu.appendChild(photoContainer);
+    hotelMenu.appendChild(nameHotel);
+    hotelMenu.appendChild(starPick);
+    hotelsContainer.appendChild(hotelMenu);
 });
        
     } catch (error) {
