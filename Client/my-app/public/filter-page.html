@@ -97,45 +97,13 @@
             <div class="star-pick">
                 <a>Stars:</a>
                 <div class="star-pick-mark">5</div>
-                <button onclick="window.location.href = 'hotel-description.html';">Перейти</button>
+                <button onclick="window.location.href = 'pudge.html';">Перейти</button>
             </div>
         </div>
-        <div class="hotel-menu">
-            <div class="photo-container">
-                <img class="hotel-photo" src="Київська обл.jpg">
-            </div>
-            <div class="name-hotel">
-                <div class="name-hotel-cont">
-                    <a>Готель Skylinesfds fsdівфівфів</a>
-                </div>
-                <div class="description">
-                    <a style="font-size: small;">Treasured for its surrounding beaches, azure blue water and a picturesque yacht paradise, The Pier Hotel is a little slice of paradise in “the back garden of Hong Kong”, Sai Kung. Escape to a private haven at The Pier Hotel where the pace of life is slow and the scenery is simply breathtaking.</a>
-                </div>
-            </div>
-            <div class="star-pick">
-                <a>Stars:</a>
-                <div class="star-pick-mark">5</div>
-                <button onclick="window.location.href = 'hotel-description.html';">Перейти</button>
-            </div>
-        </div>
-        <div class="hotel-menu">
-            <div class="photo-container">
-                <img class="hotel-photo" src="Київська обл.jpg">
-            </div>
-            <div class="name-hotel">
-                <div class="name-hotel-cont">
-                    <a>Готель Skylinesfds fsdівфівфів</a>
-                </div>
-                <div class="description">
-                    <a style="font-size: small;">Treasured for its surrounding beaches, azure blue water and a picturesque yacht paradise, The Pier Hotel is a little slice of paradise in “the back garden of Hong Kong”, Sai Kung. Escape to a private haven at The Pier Hotel where the pace of life is slow and the scenery is simply breathtaking.</a>
-                </div>
-            </div>
-            <div class="star-pick">
-                <a>Stars:</a>
-                <div class="star-pick-mark">5</div>
-                <button onclick="window.location.href = 'hotel-description.html';">Перейти</button>
-            </div>
-        </div>
+        
+        <div id="hotels-container"></div>
+        
+       
     </div>
     <div class="filters">
         <h2 style="color: #FFD700; margin-top: 5px;">Filters:</h1>
@@ -242,6 +210,105 @@
         document.head.appendChild(style);
     }
 });
+    document.addEventListener('DOMContentLoaded', displayhotels);
+    async function displayhotels() {
+    try {
+        
+        const regions = await fetchRegion(); // Отримуємо області з сервера
+        console.log(regions)
+        const hotels=await axios.post('api/main/GetHotels',{
+            Region_name:regions
+        });
+        console.log("---------------")
+        console.log(hotels.data.hotels)
+        const hotelsContainer = document.getElementById('hotels-container');
+        
+      
+        // Зацикліться через кожен готель у масиві готелів
+        hotels.data.hotels.forEach(hotel => {
+            const photoData = new Uint8Array(hotel.Photo.data.data);
+    const blob = new Blob([photoData], { type: 'image/jpeg' });
+    const imageUrl = URL.createObjectURL(blob);
+
+    // Створення елементів для готеля
+    const hotelMenu = document.createElement('div');
+    hotelMenu.classList.add('hotel-menu');
+
+    const photoContainer = document.createElement('div');
+    photoContainer.classList.add('photo-container');
+
+    const imgElement = document.createElement('img');
+    imgElement.classList.add('hotel-photo');
+    imgElement.src = imageUrl;
+    imgElement.alt = hotel.Hotel_Name;
+    photoContainer.appendChild(imgElement);
+
+    const nameHotel = document.createElement('div');
+    nameHotel.classList.add('name-hotel');
+
+    const nameHotelCont = document.createElement('div');
+    nameHotelCont.classList.add('name-hotel-cont');
+    const hotelName = document.createElement('a');
+    hotelName.textContent = hotel.Hotel_Name;
+    nameHotelCont.appendChild(hotelName);
+    nameHotel.appendChild(nameHotelCont);
+
+    const description = document.createElement('div');
+    description.classList.add('description');
+    const descText = document.createElement('a');
+    descText.style.fontSize = 'small';
+    descText.textContent = hotel.Description;
+    description.appendChild(descText);
+    nameHotel.appendChild(description);
+
+    const starPick = document.createElement('div');
+    starPick.classList.add('star-pick');
+    const starsLabel = document.createElement('a');
+    starsLabel.textContent = 'Stars:';
+    starPick.appendChild(starsLabel);
+    const starPickMark = document.createElement('div');
+    starPickMark.classList.add('star-pick-mark');
+    starPickMark.textContent = hotel.Stars;
+    starPick.appendChild(starPickMark);
+
+    const button = document.createElement('button');
+    button.textContent = 'Перейти';
+    button.onclick = function() {
+        window.location.href = 'pudge.html';
+    };
+    starPick.appendChild(button);
+
+    // Додавання створених елементів до контейнера готелів
+    hotelMenu.appendChild(photoContainer);
+    hotelMenu.appendChild(nameHotel);
+    hotelMenu.appendChild(starPick);
+    hotelsContainer.appendChild(hotelMenu);
+});
+       
+    } catch (error) {
+        console.error('Error displaying regions:', error);
+    }
+}
+
+async function fetchRegion() {
+    console.log("ok")
+    const urlParams = new URLSearchParams(window.location.search);
+    const Reg_id = urlParams.get('Rid');
+    try {
+        
+        const response = await axios.post('api/main/getRegioname',{
+            Reg_id:Reg_id
+        });
+        var reg_name=response.data.region_name
+        return reg_name
+      
+        
+    } catch (error) {
+        console.error('Error fetching regions:', error);
+        return [];
+    }
+}
+
     </script>
     
     <script src="filter-script.js"></script>
