@@ -423,21 +423,33 @@ a {
     border-radius: 50%;
 }
 
-.footer{
-    background: #d1d1d1;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    position: absolute;
-    display: flex;
-    height: 150px;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-}
+
 
 .region-photo{
     width: 400px;
     height: 300px;
     text-align: center;
 }
+
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff2f2;
+    color: black; 
+    padding: 20px; 
+    text-align: center;
+    z-index: 999;
+}
+
+.map-container {
+    float: right; 
+}
+
+.small-map {
+    width: 150px; 
+    height: 100px; 
+}
+
