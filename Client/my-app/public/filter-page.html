@@ -235,64 +235,92 @@
       
         // Зацикліться через кожен готель у масиві готелів
         hotels.data.hotels.forEach(hotel => {
-            const photoData = new Uint8Array(hotel.Photo.data.data);
-    const blob = new Blob([photoData], { type: 'image/jpeg' });
-    const imageUrl = URL.createObjectURL(blob);
+        const photoData = new Uint8Array(hotel.Photo.data.data);
+        const blob = new Blob([photoData], { type: 'image/jpeg' });
+        const imageUrl = URL.createObjectURL(blob);
 
-    // Створення елементів для готеля
-    const hotelMenu = document.createElement('div');
-    hotelMenu.classList.add('hotel-menu');
+        // Створення елементів для готеля
+        const hotelMenu = document.createElement('div');
+        hotelMenu.classList.add('hotel-menu');
 
-    const photoContainer = document.createElement('div');
-    photoContainer.classList.add('photo-container');
+        const photoContainer = document.createElement('div');
+        photoContainer.classList.add('photo-container');
 
-    const imgElement = document.createElement('img');
-    imgElement.classList.add('hotel-photo');
-    imgElement.src = imageUrl;
-    imgElement.alt = hotel.Hotel_Name;
-    photoContainer.appendChild(imgElement);
+        const imgElement = document.createElement('img');
+        imgElement.classList.add('hotel-photo');
+        imgElement.src = imageUrl;
+        imgElement.alt = hotel.Hotel_Name;
+        photoContainer.appendChild(imgElement);
 
-    const nameHotel = document.createElement('div');
-    nameHotel.classList.add('name-hotel');
+        const nameHotel = document.createElement('div');
+        nameHotel.classList.add('name-hotel');
 
-    const nameHotelCont = document.createElement('div');
-    nameHotelCont.classList.add('name-hotel-cont');
-    const hotelName = document.createElement('a');
-    hotelName.textContent = hotel.Hotel_Name;
-    nameHotelCont.appendChild(hotelName);
-    nameHotel.appendChild(nameHotelCont);
+        const nameHotelCont = document.createElement('div');
+        nameHotelCont.classList.add('name-hotel-cont');
+        const hotelName = document.createElement('a');
+        hotelName.textContent = hotel.Hotel_Name;
+        nameHotelCont.appendChild(hotelName);
+        nameHotel.appendChild(nameHotelCont);
 
-    const description = document.createElement('div');
-    description.classList.add('description');
-    const descText = document.createElement('a');
-    descText.style.fontSize = 'small';
-    descText.textContent = hotel.Description;
-    description.appendChild(descText);
-    nameHotel.appendChild(description);
+        const description = document.createElement('div');
+        description.classList.add('description');
+        const descText = document.createElement('a');
+        descText.style.fontSize = 'small';
+        descText.textContent = hotel.Description;
+        description.appendChild(descText);
+        nameHotel.appendChild(description);
+        
+        const starPick = document.createElement('div');
+        starPick.classList.add('star-pick');
+        const mark=document.createElement('div');
+        mark.classList.add("marks")
+        const starsLabel = document.createElement('a');
+        starsLabel.textContent = 'Stars:';
+        mark.appendChild(starsLabel);
+        const starPickMark = document.createElement('div');
+        starPickMark.classList.add('star-pick-mark');
+        starPickMark.textContent = hotel.Stars;
+        mark.appendChild(starPickMark);
+        
+        const button = document.createElement('button');
+        button.textContent = 'Перейти';
+        button.onclick = function() {
+            window.location.href = 'pudge.html';
+        };
+        mark.appendChild(button);
+        starPick.appendChild(mark)
+        const location = document.createElement('div');
+        location.classList.add('location');
+        const ul = document.createElement('ul');
+        ul.style.listStyleType = 'none';
+        ul.style.marginTop = '15px';
+        const regionLi = document.createElement('li');
+        regionLi.innerHTML = `<strong>Region:</strong> ${hotel.Region}`;
+        const cityLi = document.createElement('li');
+        cityLi.innerHTML = `<strong>City:</strong> ${hotel.City}`;
+        const addressLi = document.createElement('li');
+        addressLi.innerHTML = `<strong>Address:</strong> ${hotel.Location}`;
+        const hotelTypeLi = document.createElement('li');
+        hotelTypeLi.innerHTML = `<strong>Hotel type:</strong> ${hotel.Hotel_type}`;
+        ul.appendChild(regionLi);
+        ul.appendChild(cityLi);
+        ul.appendChild(addressLi);
+        ul.appendChild(hotelTypeLi);
+        location.appendChild(ul);
+        starPick.appendChild(location);
 
-    const starPick = document.createElement('div');
-    starPick.classList.add('star-pick');
-    const starsLabel = document.createElement('a');
-    starsLabel.textContent = 'Stars:';
-    starPick.appendChild(starsLabel);
-    const starPickMark = document.createElement('div');
-    starPickMark.classList.add('star-pick-mark');
-    starPickMark.textContent = hotel.Stars;
-    starPick.appendChild(starPickMark);
+        // Додавання створених елементів до контейнера готелів
+        hotelMenu.appendChild(photoContainer);
+        hotelMenu.appendChild(nameHotel);
+        hotelMenu.appendChild(starPick);
+        // hotelMenu.appendChild(location);
 
-    const button = document.createElement('button');
-    button.textContent = 'Перейти';
-    button.onclick = function() {
-        window.location.href = 'pudge.html';
-    };
-    starPick.appendChild(button);
+        const hotelsContainer = document.getElementById('hotels-container');
+        hotelsContainer.appendChild(hotelMenu);
+    });
 
-    // Додавання створених елементів до контейнера готелів
-    hotelMenu.appendChild(photoContainer);
-    hotelMenu.appendChild(nameHotel);
-    hotelMenu.appendChild(starPick);
-    hotelsContainer.appendChild(hotelMenu);
-});
+
+
        
     } catch (error) {
         console.error('Error displaying regions:', error);
