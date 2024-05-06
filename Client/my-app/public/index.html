@@ -10,6 +10,9 @@
     <script src="https://www.google.com/recaptcha/api.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
@@ -169,11 +172,39 @@ document.addEventListener('DOMContentLoaded', displayRegions);
     
 </div>-->
 
-<div class="footer">
+<footer class="footer">
     <div class="footer-content">
+        <div class="map-container">
+            <div id="map" class="small-map"></div>
+        </div>
+      </div>
+</footer>
 
-    </div>
-</div>
+
+<script>
+    function initMap() {
+       
+        var myLatLng = {lat: 50.38288, lng: 30.49639}; 
+
+      
+        var map = new google.maps.Map(document.getElementById('map'), {
+            center: myLatLng,
+            zoom: 12 
+        });
+
+      
+        var marker = new google.maps.Marker({
+            position: myLatLng,
+            map: map,
+            title: 'Місце розташування' 
+        });
+    }
+</script>
+
+<!-- Підключення Google Maps JavaScript API -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyARxlIW8ql2TCmyS-tTm0K9VpnT1SXZ7QM&callback=initMap"
+async defer></script>
+
 
 <!-- Home -->
 <section class="home">
