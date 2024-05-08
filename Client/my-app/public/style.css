@@ -441,7 +441,7 @@ a {
     color: black; 
     padding: 20px; 
     text-align: center;
-    z-index: 999;
+    z-index: 1;
 }
 
 .map-container {
