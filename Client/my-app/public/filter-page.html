@@ -281,12 +281,19 @@
         starPickMark.classList.add('star-pick-mark');
         starPickMark.textContent = hotel.Stars;
         mark.appendChild(starPickMark);
-        
+        const urlParams = new URLSearchParams(window.location.search);
+            const token = urlParams.get('token');
         const button = document.createElement('button');
         button.textContent = 'Перейти';
-        button.onclick = function() {
-            window.location.href = 'pudge.html';
+        if(token){
+            button.onclick = function() {
+            window.location.href = 'showhotel.html?Hid='+hotel._id+"&token="+token;
+            };
+        }else{
+            button.onclick = function() {
+            window.location.href = 'showhotel.html?Hid='+hotel._id;
         };
+        }
         mark.appendChild(button);
         starPick.appendChild(mark)
         const location = document.createElement('div');

@@ -79,6 +79,20 @@ class MainController{
             res.status(400).json({message:"Registration error"})
         }
     }
+    async Get_Hotel_Info(req,res){
+        try {
+            const { Hotel_id } = req.body;
+            console.log("-------------")
+            console.log(Hotel_id)
+            const hotel=await Hotel.findById(Hotel_id)
+            console.log(hotel)
+            return res.json({ hotel });
+        } catch (e) {
+            console.log(e)
+            res.status(400).json({message:"Registration error"})
+        }
+
+    }
     async ADD_Hotel(req,res){
         try {
             // Assuming req.files is an array containing multiple files

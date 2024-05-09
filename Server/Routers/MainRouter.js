@@ -9,4 +9,5 @@ router.get('/getRegion',controller.GetRegion)
 router.post("/Hoteladd",upload.any(), controller.ADD_Hotel)
 router.post("/getRegioname",controller.Get_Name)
 router.post("/GetHotels",controller.Get_Hotels)
+router.post("/GetHotel",controller.Get_Hotel_Info)
 module.exports=router
