@@ -89,6 +89,7 @@ a {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 700px;
 }
 
 .name-hotel {
@@ -141,4 +142,26 @@ a {
 /* Стилі для заголовків списку локації */
 .location strong {
     font-weight: bold;
+}
+
+.filter-accept{
+    height: 40px;
+    border: 2px solid black; /* Збільшуємо товщину межі */
+    margin: 10px auto;
+    border-radius: 8px; /* Збільшуємо радіус кутів */
+    background-color: #a55efa;
+    color: #000000;
+    padding: 5px 10px; /* Збільшуємо відступи внутрішнього вмісту */
+    font-size: 16px; /* Збільшуємо розмір шрифту */
+    cursor: pointer; /* Змінюємо форму курсора на палець */
+    transition: background-color 0.3s, color 0.3s; /* Додаємо плавність зміни кольорів */
+}
+
+.filter-accept:hover{
+    background-color: #ffffff; /* Збільшуємо яскравість при наведенні */
+    color: #000000; /* Збільшуємо контраст тексту */
+}
+
+.filter-accept:active{
+    background-color: #5a1b7f; /* Затемнюємо колір при натисканні */
 }

@@ -35,7 +35,7 @@
     <div class="search_box">
         <div class="search_section">
             <select id="town_select">
-                <option value="" disabled selected hidden>Choose the town</option>
+                <option value="" disabled selected hidden>Choose region</option>
             </select>
         </div>
         <div class="divider"></div>
@@ -98,7 +98,7 @@
                 <div class="marks">
                     <a>Stars:</a>
                     <div class="star-pick-mark">5</div>
-                    <button onclick="window.location.href = 'pudge.html';">Перейти</button>
+                    <button onclick="window.location.href = 'showhotel.html';">Перейти</button>
                 </div>
                 <div class="location">
                     <ul style="list-style-type: none; margin-top: 15px;">
@@ -117,54 +117,24 @@
     <div class="filters">
         <h2 style="color: #FFD700; margin-top: 5px;">Filters:</h1>
         
-        <h4 style=" margin-top: 5px; color: white;">Region:</4>
+        <h4 style=" margin-top: 5px; color: white;">Stars:</4>
             <select class="filters-container" id="regions" name="regions" multiple>
-                <option value="Вінницька область">Вінницька область</option>
-                <option value="Волинська область">Волинська область</option>
-                <option value="Дніпропетровська область">Дніпропетровська область</option>
-                <option value="Донецька область">Донецька область</option>
-                <option value="Житомирська область">Житомирська область</option>
-                <option value="Закарпатська область">Закарпатська область</option>
-                <option value="Запорізька область">Запорізька область</option>
-                <option value="Івано-Франківська область">Івано-Франківська область</option>
-                <option value="Київська область">Київська область</option>
-                <option value="Кіровоградська область">Кіровоградська область</option>
-                <option value="Луганська область">Луганська область</option>
-                <option value="Львівська область">Львівська область</option>
-                <option value="Миколаївська область">Миколаївська область</option>
-                <option value="Одеська область">Одеська область</option>
-                <option value="Полтавська область">Полтавська область</option>
-                <option value="Рівненська область">Рівненська область</option>
-                <option value="Сумська область">Сумська область</option>
-                <option value="Тернопільська область">Тернопільська область</option>
-                <option value="Харківська область">Харківська область</option>
-                <option value="Херсонська область">Херсонська область</option>
-                <option value="Хмельницька область">Хмельницька область</option>
-                <option value="Черкаська область">Черкаська область</option>
-                <option value="Чернівецька область">Чернівецька область</option>
-                <option value="Чернігівська область">Чернігівська область</option>
-                <option value="місто Київ">місто Київ</option>
-                <option value="місто Севастополь">місто Севастополь</option>
-                <option value="АР Крим">Автономна Республіка Крим</option>
+                <option value="1">1-★</option>
+                <option value="2">2-★★</option>
+                <option value="3">3-★★★</option>
+                <option value="4">4-★★★★</option>
+                <option value="5">5-★★★★★</option>
             </select>
         <h4 style=" margin-top: 5px; color: white;">Town:</4>
             <select class="filters-container" id="cities" name="cities" multiple>
             </select>
         <h4 style=" margin-top: 5px; color: white;">Type of accommodation:</4>
-        <div class="filters-container">
-
-        </div>
-        
-        <h4 style=" margin-top: 5px; color: white;">Stars:</4>
-        <div style="margin: 10px auto;">
-            <input name="example3" type="range" max="5" min="1" value="10" step="1">
-            <select source="[name=example3]">
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
+        <div>
+            <select  class="filters-container" multiple>
+            <option value="1">Готель</option>
+            <option value="2">Гостьовий</option>
+            <option value="3">Апартаменти</option>
+        </select>
         </div>
 
         <button class="filter-accept">Accept</button>
