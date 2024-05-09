@@ -1,0 +1,144 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+.header {
+    background-color: #7D0DC3;
+    padding: 10px;
+    position: relative;
+    height: 120px;
+    width: 100%;
+    z-index: 100;
+}
+
+.nav {
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.nav,
+.nav_item {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav_logo {
+    font-size: 25px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.background-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('background.jpg');
+    background-size: cover;
+    background-position: center;
+    filter: brightness(70%);
+    z-index: -1;
+}
+
+.all-hotels {
+    text-align: left;
+    margin-top: 120px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hotel-menu {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.5s, transform 0.5s;
+}
+
+.animated {
+    animation: slideIn 0.5s forwards;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.name-photo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.name-hotel {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.photo-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.photo-container img {
+    max-width: 100%;
+    border-radius: 10px;
+}
+
+.info-container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+/* Стилі для блоку зі значками рейтингу та локацією */
+.star-pick {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+/* Стилі для значка рейтингу */
+.star-pick span {
+    font-size: 20px;
+    color: #ffd700;
+}
+
+/* Стилі для списку локації */
+.location ul {
+    padding: 0;
+}
+
+/* Стилі для елементів списку локації */
+.location li {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+/* Стилі для заголовків списку локації */
+.location strong {
+    font-weight: bold;
+}
