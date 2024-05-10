@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Готелі</title>
     <link rel="stylesheet" href="showhotel.css">
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -23,7 +22,7 @@
         <div class="name-photo-container">
             <div class="name-hotel">
                 <div class="name-hotel-cont">
-                    <a>Готель пудж</a>
+                    <a>Готель </a>
                 </div>
             </div>
             <div class="photo-container">
@@ -36,10 +35,8 @@
             </div>
             <div class="star-pick">
                 <div class="marks">
-                    <span>&#9733;</span> <!-- Значок зірки -->
-                    <div class="star-pick-mark">5</div>
-                    <button onclick="window.location.href = 'pudge.html';">Перейти</button>
-                    <button class="filter-accept">Забронювати</button>
+                    <div class="star-pick-mark">5 <span style="color: #ffd700; font-size: 20px;">&#9733;</span></div>
+                    <button onclick="window.location.href = 'pudge.html';">Забронювати</button>
                 </div>
                 <div class="location">
                     <ul style="list-style-type: none; margin-top: 15px;">
@@ -53,6 +50,8 @@
         </div>
     </div>
 </div>
+</body>
+</html>
 <script>
     const urlParams = new URLSearchParams(window.location.search);
     const HID = urlParams.get('Hid');
