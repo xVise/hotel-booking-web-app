@@ -59,30 +59,18 @@ a {
 }
 
 .hotel-menu {
-    border: 1px solid #ccc;
-    border-radius: 10px;
+    border: none;
+    border-radius: 15px;
     padding: 20px;
     margin: 20px;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    opacity: 0;
-    transform: translateY(50px);
-    transition: opacity 0.5s, transform 0.5s;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.animated {
-    animation: slideIn 0.5s forwards;
-}
-
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateY(50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.hotel-menu:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .name-photo-container {
@@ -101,9 +89,19 @@ a {
     margin-bottom: 20px;
 }
 
+.photo-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
 .photo-container img {
     max-width: 100%;
-    border-radius: 10px;
+    border-radius: 15px;
+    transition: transform 0.3s, border-color 0.3s;
+}
+
+.photo-container img:hover {
+    transform: scale(1.05);
 }
 
 .info-container {
@@ -111,34 +109,87 @@ a {
     background-color: #f9f9f9;
     border-radius: 10px;
     margin-top: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Додамо тінь */
 }
 
-/* Стилі для блоку зі значками рейтингу та локацією */
 .star-pick {
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
 }
 
-/* Стилі для значка рейтингу */
 .star-pick span {
     font-size: 20px;
     color: #ffd700;
 }
 
-/* Стилі для списку локації */
 .location ul {
     padding: 0;
 }
 
-/* Стилі для елементів списку локації */
 .location li {
     font-size: 14px;
     color: #666;
     margin-bottom: 5px;
 }
 
-/* Стилі для заголовків списку локації */
 .location strong {
     font-weight: bold;
+}
+
+.star-pick button {
+    background-color: #7D0DC3;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.star-pick button:hover {
+    background-color: #4B0082;
+}
+
+.star-pick span {
+    font-size: 20px;
+    color: #ffd700;
+    vertical-align: middle; /* Збережемо вертикальне позиціонування */
+}
+
+/* Цифра рейтингу */
+.star-pick-mark {
+    font-size: 24px;
+    color: #000000;
+    font-weight: bold;
+    vertical-align: middle; /* Збережемо вертикальне позиціонування */
+    margin-right: 5px; /* Додамо відступ між цифрою та зіркою */
+}
+
+.description {
+    font-size: 16px; /* Збільшимо розмір шрифту */
+    line-height: 1.6; /* Додамо інтерліньяж */
+    color: #333; /* Змінимо колір тексту */
+   
+}
+
+.description a {
+    color: #000000; 
+  
+}
+
+.name-hotel-cont {
+    text-align: center;
+}
+
+.name-hotel-cont a {
+    display: inline-block;
+    font-size: 32px; 
+    font-weight: bold; 
+    color: #660ba7; 
+    text-decoration: none; 
+    text-transform: uppercase;
+    letter-spacing: 1px; 
+    margin-bottom: 10px; 
 }
