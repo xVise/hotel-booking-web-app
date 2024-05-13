@@ -35,8 +35,9 @@
     <div class="search_box">
         <div class="search_section">
             <select id="town_select">
-                <option value="" disabled selected hidden>Choose region</option>
-            </select>
+                <!-- <option value="" disabled selected hidden>Choose region</option> -->
+    
+            <option value="663564ca241db4d6acb04742">Волинська область</option><option value="6635658788b343c65e33f5fe">Дніпропетровська область</option><option value="66355b2ec36bb04480610ceb">Вінницька область</option><option value="6635662588b343c65e33f601">Донецька область</option><option value="6635666588b343c65e33f604">Житомирська область</option><option value="66360c544a02c9aa56a3b645">Закарпатська область</option><option value="66360e19550e8812f6b832dd">Запорізька область</option><option value="66360e46550e8812f6b832e0">Івано-Франківська область</option><option value="66360eb1550e8812f6b832e2">Київська область</option><option value="66360ef2550e8812f6b832e5">Кіровоградська область</option><option value="66360fbfd2cbc5c25bd5b711">Луганська область</option><option value="66361020d2cbc5c25bd5b714">Львівська область</option><option value="66361056d2cbc5c25bd5b716">Миколаївська область</option><option value="663610bad2cbc5c25bd5b719">Одеська область</option><option value="66361210d2cbc5c25bd5b71f">Полтавська область</option><option value="663612af5e68d1b883aecf51">Рівненська область</option><option value="663612f35e68d1b883aecf54">Сумська область</option><option value="663613185e68d1b883aecf56">Тернопільська область</option><option value="663613425e68d1b883aecf58">Харківська область</option><option value="6636138b5e68d1b883aecf5a">Херсонська область</option><option value="663613d35e68d1b883aecf5c">Хмельницька область</option><option value="663617a0736e9a3d5a0c80c9">Черкаська область</option><option value="66361856736e9a3d5a0c80cb">Чернівецька область</option><option value="66361873736e9a3d5a0c80cd">Чернігівська область</option></select>
         </div>
         <div class="divider"></div>
         <div class="search_section">
@@ -45,29 +46,54 @@
         </div>
         <div class="divider"></div>
         <div class="search_section">
-            <span>Guests:</span>
-            <select id="guests_select">
-                <option value="1">1 guest</option>
-                <option value="2">2 guests</option>
-                <option value="3">3 guests</option>
+            <span>Hotel Type:</span>
+            <select id="Type">
+                <option value="" disabled selected hidden>Choose type</option>
+                <option value="готель">Готель</option>
+                <option value="апартаменти">Апартаменти</option>
+                <option value="гостьовий будинок">Гостьовий будинок</option>
                 <!-- Додайте інші варіанти для кількості гостей -->
             </select>
         </div>
         
         <div class="search_section">
-            <span>Rooms:</span>
-            <select id="rooms_select">
-                <option value="1">1 room</option>
-                <option value="2">2 rooms</option>
-                <option value="3">3 rooms</option>
-                <!-- Додайте інші варіанти для кількості кімнат -->
-            </select>
+            <span>Hotel Stars</span>
+        <select id="stars">
+            <option value="" disabled selected hidden>Choose star amount</option>
+            <option value="1">1-★</option>
+            <option value="2">2-★★</option>
+            <option value="3">3-★★★</option>
+            <option value="4">4-★★★★</option>
+            <option value="5">5-★★★★★</option>
+            <!-- Додайте інші варіанти для кількості кімнат -->
+        </select>
         </div>    
         <div class="divider"></div>
         <div class="search_section">
-            <button class="search_button"> Search</span> </button>
+            <button class="search_button" onclick="redirectToFilterPage()">Search</button>
         </div>
     </div>
+    <script>
+        function redirectToFilterPage() {
+            console.log("ok")
+    // Отримання значень вибраних елементів
+    var townSelect = document.getElementById("town_select").value;
+    var typeSelect = document.getElementById("Type").value;
+    var starsSelect = document.getElementById("stars").value;
+    console.log(localStorage.token)
+   // Формування URL з вибраними значеннями
+    var url = "filter-page.html?";
+        if (townSelect) url += "Rid=" + townSelect + "&";
+        if (typeSelect) url += "type=" + typeSelect + "&";
+        if (starsSelect) url += "stars=" + starsSelect+"&";
+        if (localStorage.token) url += "token=" + localStorage.token+"&";
+        // Перенаправлення на сторінку зі збереженими параметрами
+        
+         window.location.href = url;
+
+
+}
+    </script>
     
     <div class="add-banner">
         <div class="add-banner-cont">
@@ -82,7 +108,7 @@
     </div>
 
     <div class="all-hotels">
-        <div class="hotel-menu">
+        <!-- <div class="hotel-menu">
             <div class="photo-container">
                 <img class="hotel-photo" src="Київська обл.jpg">
             </div>
@@ -109,7 +135,7 @@
                     </ul>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div id="hotels-container"></div>
         
        
@@ -130,10 +156,11 @@
             </select>
         <h4 style=" margin-top: 5px; color: white;">Type of accommodation:</4>
         <div>
-            <select  class="filters-container" multiple>
-            <option value="1">Готель</option>
-            <option value="2">Гостьовий</option>
-            <option value="3">Апартаменти</option>
+            <select  class="filters-container" id multiple>
+                
+                <option value="готель">Готель</option>
+                <option value="апартаменти">Апартаменти</option>
+                <option value="гостьовий будинок">Гостьовий будинок</option>
         </select>
         </div>
 
@@ -152,7 +179,7 @@
         document.addEventListener("DOMContentLoaded", function () {
             const urlParams = new URLSearchParams(window.location.search);
             const token = urlParams.get('token');
-            console.log(urlParams)
+            
             if (token) {
                 document.getElementById('navigation').href += '?token=' + token;
             }
@@ -162,7 +189,7 @@
     var urlParams = new URLSearchParams(window.location.search);
     // Перевіряємо, чи присутній токен
     const token = urlParams.get('token');
-    console.log(token);
+    
     if (urlParams.has('token')) {
         // Видаляємо елемент з id "form-open"
         var formOpenButton = document.getElementById('form-open');
@@ -192,17 +219,25 @@
     document.addEventListener('DOMContentLoaded', displayhotels);
     async function displayhotels() {
     try {
-        
+        const urlParams = new URLSearchParams(window.location.search);
         const regions = await fetchRegion(); // Отримуємо області з сервера
+        const Type=urlParams.get('type');
+        const star=urlParams.get('stars');
+        
         console.log(regions)
+        console.log(Type)
+        console.log(star)
+        
         const hotels=await axios.post('api/main/GetHotels',{
-            Region_name:regions
+            Region_name:regions,
+            Type:Type,
+            Stars:star
         });
-        console.log("---------------")
-        console.log(hotels.data.hotels)
+        
         const hotelsContainer = document.getElementById('hotels-container');
         
-      
+        
+        
         // Зацикліться через кожен готель у масиві готелів
         hotels.data.hotels.forEach(hotel => {
         const photoData = new Uint8Array(hotel.Photo.data.data);
@@ -305,14 +340,27 @@
 }
 
 async function fetchRegion() {
-    console.log("ok")
+    
     const urlParams = new URLSearchParams(window.location.search);
     const Reg_id = urlParams.get('Rid');
+   
+    
     try {
         
         const response = await axios.post('api/main/getRegioname',{
             Reg_id:Reg_id
         });
+        var City_names = response.data.uniqueCities;
+        const select = document.getElementById('cities');
+        City_names.forEach(city => {
+            const option = document.createElement('option');
+            option.value = city;
+            option.textContent = city; 
+            select.appendChild(option);
+            
+        });
+        
+        
         var reg_name=response.data.region_name
         return reg_name
       

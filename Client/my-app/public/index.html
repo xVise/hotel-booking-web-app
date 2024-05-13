@@ -45,7 +45,8 @@
 <div class="search_box">
     <div class="search_section">
         <select id="town_select">
-            <option value="" disabled selected hidden>Choose region</option>
+            <!-- <option value="" disabled selected hidden>Choose region</option> -->
+
         </select>
     </div>
     <div class="divider"></div>
@@ -55,27 +56,31 @@
     </div>
     <div class="divider"></div>
     <div class="search_section">
-        <span>Guests:</span>
-        <select id="guests_select">
-            <option value="1">1 guest</option>
-            <option value="2">2 guests</option>
-            <option value="3">3 guests</option>
+        <span>Hotel Type:</span>
+        <select id="Type">
+            <option value="" disabled selected hidden>Choose type</option>
+            <option value="готель">Готель</option>
+            <option value="апартаменти">Апартаменти</option>
+            <option value="гостьовий будинок">Гостьовий будинок</option>
             <!-- Додайте інші варіанти для кількості гостей -->
         </select>
     </div>
     
     <div class="search_section">
-        <span>Rooms:</span>
-        <select id="rooms_select">
-            <option value="1">1 room</option>
-            <option value="2">2 rooms</option>
-            <option value="3">3 rooms</option>
+        <span>Hotel Stars</span>
+        <select id="stars">
+            <option value="" disabled selected hidden>Choose star amount</option>
+            <option value="1">1-★</option>
+            <option value="2">2-★★</option>
+            <option value="3">3-★★★</option>
+            <option value="4">4-★★★★</option>
+            <option value="5">5-★★★★★</option>
             <!-- Додайте інші варіанти для кількості кімнат -->
         </select>
     </div>    
     <div class="divider"></div>
     <div class="search_section">
-        <button class="search_button" onclick="window.location.href='filter-page.html'">Search</button>
+        <button class="search_button" onclick="redirectToFilterPage()">Search</button>
     </div>
 </div>
 
@@ -121,16 +126,38 @@ async function fetchRegions() {
     }
 }
 
+function redirectToFilterPage() {
+    // Отримання значень вибраних елементів
+    var townSelect = document.getElementById("town_select").value;
+    var typeSelect = document.getElementById("Type").value;
+    var starsSelect = document.getElementById("stars").value;
+    console.log(localStorage.token)
+   // Формування URL з вибраними значеннями
+    var url = "filter-page.html?";
+        if (townSelect) url += "Rid=" + townSelect + "&";
+        if (typeSelect) url += "type=" + typeSelect + "&";
+        if (starsSelect) url += "stars=" + starsSelect+"&";
+        if (localStorage.token) url += "token=" + localStorage.token+"&";
+        // Перенаправлення на сторінку зі збереженими параметрами
+        
+         window.location.href = url;
+
+
+}
 // Функція для відображення областей на сторінці
 async function displayRegions() {
     try {
         const regions = await fetchRegions(); // Отримуємо області з сервера
         const ulElement = document.querySelector('.cities');
-        
+        const select = document.getElementById('town_select');
         regions.forEach(function(region) {
             // Створюємо <li> елемент для кожної області
             var liElement = document.createElement('li');
-
+            const option = document.createElement('option');
+            option.value=region._id;
+            
+            option.textContent = region.Region_Name;
+            select.appendChild(option);
             // Створюємо <img> елемент
             var imgElement = document.createElement('img');
             imgElement.classList.add('region-photo');
