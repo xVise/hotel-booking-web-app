@@ -108,34 +108,6 @@
     </div>
 
     <div class="all-hotels">
-        <!-- <div class="hotel-menu">
-            <div class="photo-container">
-                <img class="hotel-photo" src="Київська обл.jpg">
-            </div>
-            <div class="name-hotel">
-                <div class="name-hotel-cont">
-                    <a>Готель Skylinesfds fsdівфівфів</a>
-                </div>
-                <div class="description">
-                    <a style="font-size: small;">Treasured for its surrounding beaches, azure blue water and a picturesque yacht paradise, The Pier Hotel is a little slice of paradise in “the back garden of Hong Kong”, Sai Kung. Escape to a private haven at The Pier Hotel where the pace of life is slow and the scenery is simply breathtaking.</a>
-                </div>
-            </div>
-            <div class="star-pick">
-                <div class="marks">
-                    <a>Stars:</a>
-                    <div class="star-pick-mark">5</div>
-                    <button onclick="window.location.href = 'showhotel.html';">Перейти</button>
-                </div>
-                <div class="location">
-                    <ul style="list-style-type: none; margin-top: 15px;">
-                        <li><strong>Область:</strong> Хмельницька область</li>
-                        <li><strong>Місто:</strong> Хмельницький</li>
-                        <li><strong>Адреса:</strong> вул. Незалежності, 123</li>
-                        <li><strong>Тип помешкання:</strong> готель</li>
-                    </ul>
-                </div>
-            </div>
-        </div> -->
         <div id="hotels-container"></div>
         
        
@@ -145,6 +117,7 @@
         
         <h4 style=" margin-top: 5px; color: white;">Stars:</4>
             <select class="filters-container" id="regions" name="regions" multiple>
+                <option value="">Any</option>
                 <option value="1">1-★</option>
                 <option value="2">2-★★</option>
                 <option value="3">3-★★★</option>
@@ -153,21 +126,44 @@
             </select>
         <h4 style=" margin-top: 5px; color: white;">Town:</4>
             <select class="filters-container" id="cities" name="cities" multiple>
+                <option value="">Any</option>
             </select>
         <h4 style=" margin-top: 5px; color: white;">Type of accommodation:</4>
         <div>
-            <select  class="filters-container" id multiple>
-                
+            <select  class="filters-container" id="Typeh" name="Typeh" multiple>
+                <option value="">Any</option>
                 <option value="готель">Готель</option>
                 <option value="апартаменти">Апартаменти</option>
                 <option value="гостьовий будинок">Гостьовий будинок</option>
-        </select>
+            </select>
         </div>
 
-        <button class="filter-accept">Accept</button>
+        <button class="filter-accept" onclick="fileraccept()">Accept</button>
+    
 
     </div>
-
+    <script>
+       async function fileraccept(){
+        const selectStars = document.getElementById('regions').value;
+        const selectCity = document.getElementById('cities').value;
+        const selectType = document.getElementById('Typeh').value;
+        const urlParams = new URLSearchParams(window.location.search);
+        const Reg_id = urlParams.get('Rid');
+        
+        console.log(Reg_id)
+        console.log(selectCity)
+        console.log(selectType)
+        var url = "filter-page.html?";
+        if (Reg_id) url += "Rid=" + Reg_id + "&";
+        if (selectType) url += "type=" + selectType + "&";
+        if (selectStars) url += "stars=" + selectStars+"&";
+        if(selectCity)url +="city="+ selectCity+"&";
+        if (localStorage.token) url += "token=" + localStorage.token+"&";
+        // Перенаправлення на сторінку зі збереженими параметрами
+        console.log(url)
+         window.location.href = url;
+       }
+    </script>
     <script>
         $(function() {
           $('input[name="daterange"]').daterangepicker({
@@ -223,7 +219,8 @@
         const regions = await fetchRegion(); // Отримуємо області з сервера
         const Type=urlParams.get('type');
         const star=urlParams.get('stars');
-        
+        const city=urlParams.get('city');
+        console.log(city)
         console.log(regions)
         console.log(Type)
         console.log(star)
@@ -231,7 +228,8 @@
         const hotels=await axios.post('api/main/GetHotels',{
             Region_name:regions,
             Type:Type,
-            Stars:star
+            Stars:star,
+            City:city
         });
         
         const hotelsContainer = document.getElementById('hotels-container');

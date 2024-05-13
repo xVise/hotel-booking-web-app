@@ -76,7 +76,7 @@ class MainController{
     }
     async Get_Hotels(req,res){
         try {
-            const { Region_name,Type,Stars } = req.body;
+            const { Region_name,Type,Stars,City } = req.body;
             
             const query = { Region: Region_name };
             if (Type !== null) {
@@ -84,6 +84,9 @@ class MainController{
             }
             if (Stars !== null) {
                 query.Stars = Stars;
+            }
+            if(City!==null){
+                query.City=City;
             }
             console.log(query)
             const hotels = await Hotel.find(query);
