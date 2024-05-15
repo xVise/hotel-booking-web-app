@@ -48,44 +48,7 @@ $('input[name="dates"]').daterangepicker();
     document.addEventListener('input', onChange)
   }());
 
-          // Вибірка елемента select
-          var select = document.getElementById("cities");
 
-          // Список міст України (ваші дані або отримані з якогось джерела)
-          var citiesList = [
-            "Київ",
-            "Харків",
-            "Одеса",
-            "Дніпро",
-            "Донецьк",
-            "Запоріжжя",
-            "Львів",
-            "Кривий Ріг",
-            "Миколаїв",
-            "Вінниця",
-            "Херсон",
-            "Полтава",
-            "Чернігів",
-            "Черкаси",
-            "Житомир",
-            "Ялта",
-            "Одеса",
-            "Трускавець",
-            "Івано-Франківськ",
-            "Яремче",
-            "Судак",
-            "Затока",
-            "Коблеве",
-            "Іллічівськ",
-            "Скадовськ"
-              // Додайте інші міста тут
-          ];
   
-          // Додавання опцій до випадаючого списку
-          citiesList.forEach(function(city) {
-              var option = document.createElement("option");
-              option.text = city;
-              option.value = city;
-              select.add(option);
-          });
+ 
           

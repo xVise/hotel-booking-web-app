@@ -58,9 +58,16 @@ class MainController{
             if (!region) {
                 return res.status(404).json({ message: "Region not found" }); // Якщо регіон не знайдено, поверніть 404
             }
-    
+            
             const region_name = region.Region_Name; // Отримайте ім'я регіону
-            return res.json({ region_name });
+
+            const hotels = await Hotel.find({ Region: region_name }, 'City');
+        
+        // Отримати унікальні назви міст
+            const uniqueCities = [...new Set(hotels.map(hotel => hotel.City))];
+            console.log(uniqueCities)
+
+            return res.json({ region_name,uniqueCities });
       
         } catch (e) {
             console.log(e)
@@ -69,10 +76,20 @@ class MainController{
     }
     async Get_Hotels(req,res){
         try {
-            const { Region_name } = req.body;
-            console.log("-------------")
-            console.log(Region_name)
-            const hotels=await Hotel.find({Region:Region_name})
+            const { Region_name,Type,Stars,City } = req.body;
+            
+            const query = { Region: Region_name };
+            if (Type !== null) {
+                query.Hotel_type = Type;
+            }
+            if (Stars !== null) {
+                query.Stars = Stars;
+            }
+            if(City!==null){
+                query.City=City;
+            }
+            console.log(query)
+            const hotels = await Hotel.find(query);
             return res.json({ hotels });
         } catch (e) {
             console.log(e)
