@@ -43,10 +43,7 @@ async function registerUser() {
             window.location.href = 'Reg_sendCode.html?token=' + response.data.token;
         });
 
-            localStorage.setItem("token",response.data.token);
-            window.location.href = 'Reg_sendCode.html?token='+response.data.token;
-        })
-
+        
 
     } catch (error) {
         console.error("Error registering user:", error.message);

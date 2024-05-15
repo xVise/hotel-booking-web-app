@@ -71,39 +71,105 @@
             <option value="2">2 кімнати</option>
             <option value="3">3 кімнати</option>
         </select>
-        <button>Підтвердити</button>
+        <button class="Booking" onclick="BookHotel()">Підтвердити</button>
     </div>
 </div>
+<script>
+  function BookHotel(){
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
+    const HID = urlParams.get('Hid');
+   
+    if(token != null){
+        var guest_count = document.getElementById("guests").value;
+        var checkinInput = document.getElementById("checkin").value;
+        var checkoutInput = document.getElementById("checkout").value;
+        var rooms = document.getElementById("rooms").value;
 
+        // Перевірка, чи обидві дати вибрані
+        if (!checkinInput || !checkoutInput) {
+            alert("Будь ласка, виберіть як дату заїзду, так і дату виїзду.");
+            return;
+        }
+
+        var Check_in = new Date(checkinInput);
+        var Check_out = new Date(checkoutInput);
+
+        // Перевірка, чи дата виїзду пізніша або дорівнює даті заїзду
+        if (Check_out <= Check_in) {
+            alert("Дата виїзду повинна бути пізнішою за дату заїзду.");
+            return; 
+        }
+        if (Check_in <= new Date()) {
+            alert("Дата заїзду повинна бути пізнішою за сьогоднішню дату.");
+            return; 
+        }
+        
+
+        axios.post('api/main/BookHotel', {
+            Hotel_id: HID,
+            token:token,
+            guest_count:guest_count,
+            Check_in:Check_in.toISOString(),
+            Check_out:Check_out.toISOString(),
+            rooms:rooms
+        }).then(response => {
+    
+            const responseData = response.data;
+            console.log(response.data)
+            if (responseData ) {
+          
+            const message = response.data;
+          
+            alert(message);
+            
+             window.location.href = '/index.html?token='+token;
+    } else {
+        // Якщо відповідь сервера не містить потрібних даних
+        console.error('Неправильний формат відповіді від сервера.');
+    }
+        }).catch(error => {
+            console.error('Помилка при бронюванні готелю:', error);
+        });
+
+        
+    } else {
+        alert("Ви не авторизовані. Будь ласка, увійдіть в систему, щоб забронювати готель.");
+    }
+}
+
+</script>
 </body>
 </html>
 <script>
     const urlParams = new URLSearchParams(window.location.search);
     const HID = urlParams.get('Hid');
     console.log(HID);
-    if (HID) {
-        axios.post('api/main/GetHotel', {
-            Hotel_id: HID
-        }).then(function (response) {
-            const hotelData = response.data.hotel; // Отримуємо дані готелю з сервера
+        if (HID) {
+            axios.post('api/main/GetHotel', {
+                Hotel_id: HID
+            }).then(function (response) {
+                const hotelData = response.data.hotel; // Отримуємо дані готелю з сервера
 
-            document.querySelector('.name-hotel-cont a').innerText = hotelData.Hotel_Name;
-            document.querySelector('.description a').innerText = hotelData.Description;
-            document.querySelector('.location li:nth-of-type(1)').innerHTML = `<strong>Область:</strong> ${hotelData.Region}`;
-            document.querySelector('.location li:nth-of-type(2)').innerHTML = `<strong>Місто:</strong> ${hotelData.City}`;
-            document.querySelector('.location li:nth-of-type(3)').innerHTML = `<strong>Адреса:</strong> ${hotelData.Location}`;
-            document.querySelector('.location li:nth-of-type(4)').innerHTML = `<strong>Тип помешкання:</strong> ${hotelData.Hotel_type}`;
-            document.querySelector('.star-pick-mark').innerText = hotelData.Stars;
-            const photoData = new Uint8Array(hotelData.Photo.data.data);
-            const blob = new Blob([photoData], { type: 'image/jpeg' });
-            const imageUrl = URL.createObjectURL(blob);
-            document.querySelector('.photo-container img').src = imageUrl;
-        }).catch(function (error) {
-            console.error('Error fetching hotel data:', error);
-        });
-    } else {
-        console.error('HID not found in URL.');
-    }
+                document.querySelector('.name-hotel-cont a').innerText = hotelData.Hotel_Name;
+                document.querySelector('.description a').innerText = hotelData.Description;
+                document.querySelector('.location li:nth-of-type(1)').innerHTML = `<strong>Область:</strong> ${hotelData.Region}`;
+                document.querySelector('.location li:nth-of-type(2)').innerHTML = `<strong>Місто:</strong> ${hotelData.City}`;
+                document.querySelector('.location li:nth-of-type(3)').innerHTML = `<strong>Адреса:</strong> ${hotelData.Location}`;
+                document.querySelector('.location li:nth-of-type(4)').innerHTML = `<strong>Тип помешкання:</strong> ${hotelData.Hotel_type}`;
+                document.querySelector('.star-pick-mark').innerHTML = `${hotelData.Stars} <span style="color: #ffd700; font-size: 20px;">&#9733;</span>`;
+                
+                const photoData = new Uint8Array(hotelData.Photo.data.data);
+                const blob = new Blob([photoData], { type: 'image/jpeg' });
+                const imageUrl = URL.createObjectURL(blob);
+                document.querySelector('.photo-container img').src = imageUrl;
+            }).catch(function (error) {
+                console.error('Error fetching hotel data:', error);
+            });
+        } else {
+            console.error('HID not found in URL.');
+        }
+
 
     document.querySelector('.nav_logo').addEventListener('click', function(event) {
         event.preventDefault(); // Зупиняємо перехід за замовчуванням

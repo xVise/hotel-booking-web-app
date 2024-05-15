@@ -131,13 +131,15 @@ function redirectToFilterPage() {
     var townSelect = document.getElementById("town_select").value;
     var typeSelect = document.getElementById("Type").value;
     var starsSelect = document.getElementById("stars").value;
-    console.log(localStorage.token)
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
+    
    // Формування URL з вибраними значеннями
     var url = "filter-page.html?";
         if (townSelect) url += "Rid=" + townSelect + "&";
         if (typeSelect) url += "type=" + typeSelect + "&";
         if (starsSelect) url += "stars=" + starsSelect+"&";
-        if (localStorage.token) url += "token=" + localStorage.token+"&";
+        if (token) url += "token=" + token+"&";
         // Перенаправлення на сторінку зі збереженими параметрами
         
          window.location.href = url;

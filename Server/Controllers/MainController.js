@@ -13,8 +13,59 @@ const {secret}=require("./config")
 const {validationResult, header}=require("express-validator")
 const nodemailer = require('nodemailer');
 const multer = require('multer');
+const Hotels = require("../Module/Hotels")
 const storage = multer.memoryStorage(); // Зберігання файлу у вигляді буфера в пам'яті
 const upload = multer({ storage: storage });
+const decodeToken = (token, secret) => {
+    try {
+        const decoded = jwt.verify(token, secret);
+        console.log(decoded)
+        return decoded;
+    } catch (error) {
+        // Обробка помилок при розшифруванні токену
+        console.error('Помилка при розшифруванні токену:', error.message);
+        return null;
+    }
+}
+const transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+        user: 'pythonmail1984@gmail.com',
+        pass: 'dori pxty yult livc'
+    }
+});
+function sendBooking(email,First_Name,Last_Name, Hotel_name, guest_count, rooms, checkinInput, checkoutInput,Region,City,Location ) {
+    // Конвертація дат в рядки у форматі ISO8601
+    var Check_in = new Date(checkinInput);
+    var Check_out = new Date(checkoutInput);
+    const checkInString = Check_in.toISOString().slice(0, 10);
+    const checkOutString = Check_out.toISOString().slice(0, 10);
+
+    const mailOptions = {
+        from: 'pythonmail1984@gmail.com',
+        to: email,
+        subject: 'Ваше бронювання готелю',
+        text: `Шановний(а) ${First_Name} ${Last_Name},\n\n` +
+              `Ви успішно забронювали готель ${Hotel_name}.\n` +
+              `Який знаходиться в ${Region}\n`+
+              `Місто ${City}\n`+
+              `${Location}.\n`+
+              `Дата заїзду: ${checkInString}\n` + // Використовуємо конвертовані рядки
+              `Дата виїзду: ${checkOutString}\n` + // Використовуємо конвертовані рядки
+              `Кількість гостей: ${guest_count}\n` +
+              `Кількість номерів: ${rooms}\n\n` +
+              `Дякуємо за вашу бронь. Бажаємо вам приємного відпочинку!`
+    };
+    
+
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            console.error('Помилка при відправці електронної пошти:', error);
+        } else {
+            console.log('Електронна пошта надіслана: ' + info.response);
+        }
+    });
+}
 
 class MainController{
     
@@ -109,6 +160,24 @@ class MainController{
             res.status(400).json({message:"Registration error"})
         }
 
+    }
+    async Book_hotel(req,res){
+        try{
+            const {Hotel_id,token,guest_count,Check_in,Check_out,rooms}=req.body;
+            console.log(Check_in)
+            const decodedToken = decodeToken(token, secret);
+            var userinfo = await User.findById(decodedToken.id);
+            console.log(userinfo)
+            var hotelinfo=await Hotel.findById(Hotel_id)
+            sendBooking(userinfo.EMail,userinfo.First_Name,userinfo.Last_Name,hotelinfo.Hotel_Name,guest_count,rooms,Check_in,Check_out,hotelinfo.Region,hotelinfo.City,hotelinfo.Location)
+            const message = `Повідомлення відправлене на пошту ${userinfo.EMail}.`;
+        
+            
+            res.send(message);
+        }catch(e){
+            console.log(e)
+            res.status(400).json({message:"Registration error"})
+        }
     }
     async ADD_Hotel(req,res){
         try {
