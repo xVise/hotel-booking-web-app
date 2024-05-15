@@ -51,15 +51,39 @@
         </div>
     </div>
 </div>
+<div id="bookingModal" class="modal">
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h2>Забронювати номер</h2>
+        <label for="guests">Кількість гостей:</label>
+        <select id="guests">
+            <option value="1">1 гість</option>
+            <option value="2">2 гість</option>
+            <option value="3">3 гість</option>
+        </select>
+        <label for="checkin">Дата заїзду:</label>
+        <input type="date" id="checkin">
+        <label for="checkout">Дата виїзду:</label>
+        <input type="date" id="checkout">
+        <label for="rooms">Кількість кімнат:</label>
+        <select id="rooms">
+            <option value="1">1 кімната</option>
+            <option value="2">2 кімнати</option>
+            <option value="3">3 кімнати</option>
+        </select>
+        <button>Підтвердити</button>
+    </div>
+</div>
+
 </body>
 </html>
 <script>
     const urlParams = new URLSearchParams(window.location.search);
     const HID = urlParams.get('Hid');
-    console.log(HID)
+    console.log(HID);
     if (HID) {
         axios.post('api/main/GetHotel', {
-            Hotel_id:HID
+            Hotel_id: HID
         }).then(function (response) {
             const hotelData = response.data.hotel; // Отримуємо дані готелю з сервера
 
@@ -75,23 +99,53 @@
             const imageUrl = URL.createObjectURL(blob);
             document.querySelector('.photo-container img').src = imageUrl;
         }).catch(function (error) {
-            console.error('Error fetching user profile:', error);
+            console.error('Error fetching hotel data:', error);
         });
     } else {
-        console.error('Token not found in URL.');
+        console.error('HID not found in URL.');
     }
-    
-</script>
-<script>
+
     document.querySelector('.nav_logo').addEventListener('click', function(event) {
         event.preventDefault(); // Зупиняємо перехід за замовчуванням
         const urlParams = new URLSearchParams(window.location.search);
-         const token = urlParams.get('token');
+        const token = urlParams.get('token');
         if (token) {
             window.location.href = `index.html?token=${token}`; // Перенаправляємо на index.html з токеном
         } else {
-            window.location.href = `index.html`;}
+            window.location.href = `index.html`;
+        }
     });
+
+   // Modal functionality
+document.addEventListener('DOMContentLoaded', (event) => {
+    const modal = document.getElementById("bookingModal");
+    const btn = document.querySelector(".marks button");
+    const span = document.getElementsByClassName("close-button")[0];
+
+    btn.onclick = function() {
+        modal.style.display = "flex";
+        setTimeout(() => {
+            modal.classList.add('show');
+        }, 10); 
+    }
+
+    span.onclick = function() {
+        modal.classList.remove('show');
+        setTimeout(() => {
+            modal.style.display = "none";
+        }, 400);
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.classList.remove('show');
+            setTimeout(() => {
+                modal.style.display = "none";
+            }, 400);
+        }
+    }
+});
 </script>
+
 </body>
 </html>
